@@ -1,0 +1,158 @@
+{
+  "students": [
+    {
+      "roll": "2201",
+      "pass": "demo",
+      "name": "Ritika Nayak",
+      "branch": "CSE",
+      "hosteller": true,
+      "room": "B-214"
+    },
+    {
+      "roll": "2202",
+      "pass": "demo",
+      "name": "Aman Tripathy",
+      "branch": "ECE",
+      "hosteller": false,
+      "room": ""
+    },
+    {
+      "roll": "123456",
+      "pass": "654321",
+      "name": "Umesh Patra",
+      "branch": "CSE",
+      "hosteller": true,
+      "room": "177"
+    },
+    {
+      "roll": "123456789",
+      "pass": "987654321",
+      "name": "Random1",
+      "branch": "CSE",
+      "hosteller": true,
+      "room": "100"
+    },
+    {
+      "roll": "12345",
+      "pass": "54321",
+      "name": "Pratik Mahapatra",
+      "branch": "CSE",
+      "hosteller": true,
+      "room": "85"
+    },
+    {
+      "roll": "111111",
+      "pass": "ssssss",
+      "name": "Kk",
+      "branch": "CE",
+      "hosteller": false,
+      "room": ""
+    },
+    {
+      "roll": "17764",
+      "pass": "17378",
+      "name": "Jrurj",
+      "branch": "CSE",
+      "hosteller": true,
+      "room": "7321"
+    }
+  ],
+  "admins": [
+    {
+      "emp": "FAC-01",
+      "pass": "demo",
+      "name": "Prof. S. Patra"
+    },
+    {
+      "emp": "1111",
+      "pass": "221133",
+      "name": "Sweta Dash"
+    },
+    {
+      "emp": "1234",
+      "pass": "123456789",
+      "name": "RANDOM2"
+    }
+  ],
+  "notices": [
+    {
+      "id": "NT-0002",
+      "title": "Hostel Maintenance Schedule for Saturday",
+      "body": "Scheduled Wi-Fi infrastructure maintenance will take place across Hostel Blocks A and B between 10:00 and 14:00.",
+      "at": "2026-09-28"
+    }
+  ],
+  "requests": [
+    {
+      "id": "LV-184747",
+      "type": "leave",
+      "who": "Random1",
+      "branch": "CSE",
+      "f": {
+        "from_date": "2026-10-10",
+        "to_date": "2026-11-10",
+        "reason": "phy assgn"
+      },
+      "status": "resolved",
+      "notes": [],
+      "hist": [
+        {
+          "s": "pending",
+          "at": "2026-10-01"
+        },
+        {
+          "s": "in_progress",
+          "at": "2026-10-01"
+        },
+        {
+          "s": "resolved",
+          "at": "2026-10-01"
+        },
+        {
+          "s": "resolved",
+          "at": "2026-10-01"
+        }
+      ]
+    }
+  ],
+  "reminders": [
+    {
+      "id": "RM-150086",
+      "who": "Random1",
+      "title": "CSE",
+      "due": "2026-10-11"
+    },
+    {
+      "id": "RM-033921",
+      "who": "Umesh Patra",
+      "title": "mid sem",
+      "due": "2026-02-10"
+    },
+    {
+      "id": "RM-0001",
+      "who": "Ritika Nayak",
+      "title": "Database Systems Assignment Submission",
+      "due": "2026-10-02"
+    }
+  ],
+  "exam": [
+    {
+      "id": "EX-649946",
+      "cat": "pyq",
+      "branch": "CSE",
+      "sem": "1",
+      "title": "INTERNAL SEM",
+      "content": "EXAM",
+      "media": "data:text/plain;base64,IyBDYW1wdXNFYXNlIHVzZXMgc3RhbmRhcmQgbGlicmFyeSBQeXRob24gbW9kdWxlcyAoaHR0cC5zZXJ2ZXIsIGpzb24sIHVybGxpYi5wYXJzZSkKIyBaZXJvIGV4dGVybmFsIHBhY2thZ2VzIHJlcXVpcmVkIGZvciBjbG91ZCBydW50aW1lCg==",
+      "media_name": "requirements.txt",
+      "at": "2026-10-01"
+    }
+  ],
+  "contact": {
+    "email": "registrar@campus.edu",
+    "phone": "+1 (555) 019-2834",
+    "office": "Admin Block B, Room 102",
+    "hours": "Mon - Fri 09:00 - 17:00",
+    "emergency": "Security: ext 100"
+  }
+}

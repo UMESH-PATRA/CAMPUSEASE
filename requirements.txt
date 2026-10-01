@@ -1,0 +1,2 @@
+# CampusEase uses standard library Python modules (http.server, json, urllib.parse)
+# Zero external packages required for cloud runtime

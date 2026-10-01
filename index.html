@@ -1,0 +1,2555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusEase | Institutional Academic & Administrative Portal</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230f172a'%3E%3Cpath d='M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z'/%3E%3C/svg%3E" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0b1329" />
+  
+  <!-- Modern Institutional Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      
+      --slate-950: #0b1329;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      
+      --card-bg: #ffffff;
+      --line: #e2e8f0;
+      --line-subtle: #f1f5f9;
+      
+      /* Enterprise rectangular border radius */
+      --radius: 6px;
+      --radius-sm: 4px;
+      
+      /* Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      
+      /* High-contrast status badges with dot indicators */
+      --status-pending-bg: #fffbeb;
+      --status-pending-text: #92400e;
+      --status-pending-border: #fde68a;
+      --status-pending-dot: #d97706;
+
+      --status-prog-bg: #eff6ff;
+      --status-prog-text: #1e40af;
+      --status-prog-border: #bfdbfe;
+      --status-prog-dot: #2563eb;
+
+      --status-res-bg: #f0fdf4;
+      --status-res-text: #166534;
+      --status-res-border: #bbf7d0;
+      --status-res-dot: #16a34a;
+
+      --status-rej-bg: #fef2f2;
+      --status-rej-text: #991b1b;
+      --status-rej-border: #fecaca;
+      --status-rej-dot: #dc2626;
+
+      /* Micro-elevations */
+      --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+      --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Container Shell */
+    #app {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: var(--slate-50);
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Top Institutional Header */
+    .topbar {
+      background: var(--slate-950);
+      color: #ffffff;
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 2px solid var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--slate-800);
+      border: 1px solid var(--slate-700);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #93c5fd;
+    }
+
+    .brand-icon svg { width: 18px; height: 18px; }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffffff;
+    }
+
+    .brand-badge {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 7px;
+      background: var(--slate-800);
+      border: 1px solid var(--slate-700);
+      color: #93c5fd;
+      border-radius: var(--radius-sm);
+    }
+
+    .system-status-indicator {
+      display: flex;
+      align-items: center;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--slate-300);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      letter-spacing: 0.2px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--slate-900);
+      padding: 4px;
+      border-radius: var(--radius);
+      border: 1px solid var(--slate-800);
+    }
+
+    .nav-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--slate-300);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+      transition: all 0.12s ease;
+    }
+
+    .nav-tab-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-tab-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-tab-btn svg { width: 14px; height: 14px; }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-box-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon-svg {
+      position: absolute;
+      left: 10px;
+      width: 14px;
+      height: 14px;
+      color: var(--slate-400);
+      pointer-events: none;
+    }
+
+    .search-input {
+      padding: 6px 10px 6px 30px;
+      border: 1px solid var(--slate-700);
+      background: var(--slate-900);
+      color: #ffffff;
+      font-size: 12.5px;
+      border-radius: var(--radius);
+      width: 200px;
+      outline: none;
+      transition: all 0.15s ease;
+    }
+
+    .search-input:focus {
+      border-color: #60a5fa;
+      background: var(--slate-950);
+      width: 240px;
+      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+    }
+
+    .search-input::placeholder { color: var(--slate-500); }
+
+    /* Buttons: Standard enterprise rectangular styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+      line-height: 1.2;
+      transition: all 0.12s ease;
+      user-select: none;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      border: 1px solid var(--slate-300);
+      color: var(--slate-800);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .btn-secondary:hover {
+      background: var(--slate-50);
+      border-color: var(--slate-400);
+      color: var(--slate-900);
+    }
+
+    .btn-dark-subtle {
+      background: var(--slate-800);
+      border: 1px solid var(--slate-700);
+      color: var(--slate-200);
+    }
+
+    .btn-dark-subtle:hover {
+      background: var(--slate-700);
+      color: #ffffff;
+    }
+
+    .btn-danger {
+      background: #ffffff;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+    }
+
+    .btn-danger:hover {
+      background: #fef2f2;
+      border-color: #ef4444;
+    }
+
+    .btn-success {
+      background: #166534;
+      color: #ffffff;
+      border-color: #166534;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .btn-success:hover {
+      background: #14532d;
+    }
+
+    .btn-sm {
+      padding: 4px 10px;
+      font-size: 11.5px;
+    }
+
+    /* Sub-header User Ribbon */
+    .user-ribbon {
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .user-meta-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar-rect {
+      width: 36px;
+      height: 36px;
+      background: var(--slate-900);
+      color: #ffffff;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      border: 1px solid var(--slate-700);
+    }
+
+    .user-details {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .user-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-right: 4px;
+    }
+
+    .role-tag {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      background: var(--slate-100);
+      border: 1px solid var(--slate-300);
+      color: var(--slate-800);
+    }
+
+    .meta-tag {
+      font-size: 11.5px;
+      color: var(--slate-600);
+      background: var(--slate-50);
+      padding: 2px 7px;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+    }
+
+    .session-badge {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--slate-500);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Workspace Content Area */
+    .workspace-wrapper {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 24px 32px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Stats Overview Cards */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .stat-box {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      cursor: pointer;
+      box-shadow: var(--shadow-xs);
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-box::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: transparent;
+      transition: background 0.15s ease;
+    }
+
+    .stat-box:hover {
+      border-color: var(--slate-300);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-1px);
+    }
+
+    .stat-box.active-tab-stat::before,
+    .stat-box:hover::before {
+      background: var(--primary);
+    }
+
+    .stat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--slate-600);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-indicator-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .stat-indicator-dot.amber { background: var(--status-pending-dot); }
+    .stat-indicator-dot.blue { background: var(--status-prog-dot); }
+    .stat-indicator-dot.green { background: var(--status-res-dot); }
+    .stat-indicator-dot.slate { background: var(--slate-600); }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--slate-900);
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-footer-text {
+      font-size: 11px;
+      color: var(--slate-500);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Page Header */
+    .page-header {
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .page-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .page-subtitle {
+      font-size: 12.5px;
+      color: var(--slate-600);
+      margin-top: 3px;
+    }
+
+    /* Enterprise Cards */
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      letter-spacing: -0.1px;
+    }
+
+    /* Forms */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 12px;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--slate-700);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 8px 11px;
+      border: 1px solid var(--slate-300);
+      border-radius: var(--radius);
+      background: #ffffff;
+      color: var(--slate-900);
+      font-size: 13px;
+      outline: none;
+      transition: all 0.12s ease;
+      font-family: var(--font-sans);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.12);
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    /* Action Filter Bar */
+    .filter-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .filter-btn {
+      background: #ffffff;
+      border: 1px solid var(--slate-300);
+      color: var(--slate-700);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.12s ease;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .filter-btn:hover {
+      background: var(--slate-50);
+      border-color: var(--slate-400);
+      color: var(--slate-900);
+    }
+
+    .filter-btn.active {
+      background: var(--slate-900);
+      color: #ffffff;
+      border-color: var(--slate-900);
+    }
+
+    /* Items List */
+    .table-list-item {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow-xs);
+      transition: border-color 0.12s ease;
+    }
+
+    .table-list-item:hover {
+      border-color: var(--slate-300);
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .item-header-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .id-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: var(--slate-100);
+      border: 1px solid var(--slate-300);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      color: var(--slate-700);
+    }
+
+    .item-meta {
+      font-size: 12px;
+      color: var(--slate-600);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Badges: Rectangular status indicators with micro-dots */
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .badge.pending {
+      background: var(--status-pending-bg);
+      color: var(--status-pending-text);
+      border: 1px solid var(--status-pending-border);
+    }
+    .badge.pending .badge-dot { background: var(--status-pending-dot); }
+
+    .badge.in_progress {
+      background: var(--status-prog-bg);
+      color: var(--status-prog-text);
+      border: 1px solid var(--status-prog-border);
+    }
+    .badge.in_progress .badge-dot { background: var(--status-prog-dot); }
+
+    .badge.resolved {
+      background: var(--status-res-bg);
+      color: var(--status-res-text);
+      border: 1px solid var(--status-res-border);
+    }
+    .badge.resolved .badge-dot { background: var(--status-res-dot); }
+
+    .badge.rejected {
+      background: var(--status-rej-bg);
+      color: var(--status-rej-text);
+      border: 1px solid var(--status-rej-border);
+    }
+    .badge.rejected .badge-dot { background: var(--status-rej-dot); }
+
+    /* Expanded Detail Panel & Lifecycle Stepper */
+    .detail-panel {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .lifecycle-stepper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      background: var(--slate-50);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px 20px;
+      margin-bottom: 4px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1;
+    }
+
+    .step-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid var(--slate-300);
+      background: #ffffff;
+      color: var(--slate-600);
+    }
+
+    .step-circle.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .step-circle.complete {
+      background: #166534;
+      color: #ffffff;
+      border-color: #166534;
+    }
+
+    .step-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--slate-800);
+    }
+
+    .step-divider {
+      flex: 1;
+      height: 2px;
+      background: var(--slate-200);
+      margin: 0 12px;
+    }
+
+    .kv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      background: var(--slate-50);
+      border: 1px solid var(--line);
+      padding: 12px 14px;
+      border-radius: var(--radius);
+    }
+
+    .kv-item { display: flex; flex-direction: column; gap: 3px; }
+    .kv-key { font-size: 11px; font-weight: 700; color: var(--slate-500); text-transform: uppercase; }
+    .kv-val { font-size: 13px; font-weight: 600; color: var(--slate-900); }
+
+    .audit-trail {
+      font-size: 12px;
+      color: var(--slate-600);
+      background: #ffffff;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .note-entry {
+      background: var(--slate-50);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--primary);
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      margin-bottom: 8px;
+    }
+
+    .note-header {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--slate-700);
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .note-body {
+      font-size: 13px;
+      color: var(--slate-800);
+      line-height: 1.4;
+    }
+
+    /* Request Selection Grid */
+    .req-selection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .req-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: var(--shadow-xs);
+      transition: all 0.15s ease;
+    }
+
+    .req-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .req-card-icon-wrap {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius);
+      background: var(--slate-100);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .req-card-icon-wrap svg { width: 20px; height: 20px; }
+
+    .req-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--slate-900);
+    }
+
+    .req-card-desc {
+      font-size: 12.5px;
+      color: var(--slate-600);
+      line-height: 1.5;
+    }
+
+    .req-card-action {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: auto;
+      padding-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Subtabs */
+    .subtabs-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
+    }
+
+    .subtab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--slate-600);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+
+    .subtab-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+    }
+
+    .subtab-btn.active {
+      background: #ffffff;
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+      box-shadow: var(--shadow-xs);
+    }
+
+    /* Auth Screen */
+    .auth-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 60px);
+      padding: 30px 20px;
+      background: var(--slate-100);
+    }
+
+    .auth-panel {
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      border: 1px solid var(--slate-300);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .auth-header {
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .auth-crest-wrap {
+      width: 44px;
+      height: 44px;
+      background: var(--slate-900);
+      color: #93c5fd;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--slate-700);
+    }
+
+    .auth-crest-wrap svg { width: 24px; height: 24px; }
+
+    .auth-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--slate-900);
+      letter-spacing: -0.3px;
+    }
+
+    .auth-desc {
+      font-size: 12.5px;
+      color: var(--slate-600);
+    }
+
+    .role-toggle {
+      display: flex;
+      background: var(--slate-100);
+      padding: 3px;
+      border-radius: var(--radius);
+      gap: 3px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .role-toggle-btn {
+      flex: 1;
+      padding: 7px;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--slate-600);
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+
+    .role-toggle-btn.active {
+      background: #ffffff;
+      color: var(--slate-900);
+      box-shadow: var(--shadow-xs);
+    }
+
+    /* Modal for Legal / Policy */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 19, 41, 0.65);
+      backdrop-filter: blur(2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .modal-window {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 650px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--slate-50);
+      border-top-left-radius: var(--radius);
+      border-top-right-radius: var(--radius);
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--slate-900);
+    }
+
+    .modal-content {
+      padding: 20px;
+      overflow-y: auto;
+      font-size: 13px;
+      color: var(--slate-700);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .modal-footer {
+      padding: 12px 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: flex-end;
+      background: var(--slate-50);
+      border-bottom-left-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
+    }
+
+    /* Institutional Footer */
+    .site-footer {
+      background: #ffffff;
+      border-top: 1px solid var(--line);
+      padding: 16px 24px;
+      font-size: 12px;
+      color: var(--slate-500);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .footer-link {
+      color: var(--slate-600);
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: color 0.12s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast-pill {
+      background: var(--slate-900);
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      font-size: 12.5px;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      border-left: 3px solid #22c55e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: toastIn 0.15s ease-out;
+    }
+
+    @keyframes toastIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 900px) {
+      .topbar {
+        height: auto;
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .topbar-left {
+        justify-content: space-between;
+      }
+      .nav-tabs {
+        overflow-x: auto;
+      }
+      .top-actions {
+        justify-content: space-between;
+      }
+      .search-input { width: 100%; }
+      .search-input:focus { width: 100%; }
+      .workspace-wrapper {
+        padding: 14px 16px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script>
+  (function(){
+    // -------------------------------------------------------------
+    // BACKEND REST API CLIENT
+    // -------------------------------------------------------------
+    const API_BASE = '/api';
+
+    async function req(url, options = {}) {
+      try {
+        const res = await fetch(API_BASE + url, {
+          headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
+          ...options
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || 'Server request failed');
+        }
+        return data;
+      } catch (err) {
+        console.warn('Backend API request notification:', err.message);
+        throw err;
+      }
+    }
+
+    const api = {
+      login: (id, pass, role) => req('/auth/login', { method: 'POST', body: JSON.stringify({ id, pass, role }) }),
+      signup: payload => req('/auth/signup', { method: 'POST', body: JSON.stringify(payload) }),
+      getNotices: () => req('/notices'),
+      createNotice: (title, body) => req('/notices', { method: 'POST', body: JSON.stringify({ title, body }) }),
+      deleteNotice: id => req(`/notices/${id}`, { method: 'DELETE' }),
+      getRequests: (who, role) => req(`/requests?who=${encodeURIComponent(who || '')}&role=${role}`),
+      createRequest: payload => req('/requests', { method: 'POST', body: JSON.stringify(payload) }),
+      updateRequestStatus: (id, status) => req(`/requests/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) }),
+      addRequestNote: (id, by, t) => req(`/requests/${id}/notes`, { method: 'POST', body: JSON.stringify({ by, t }) }),
+      getReminders: who => req(`/reminders?who=${encodeURIComponent(who || '')}`),
+      createReminder: (who, title, due) => req('/reminders', { method: 'POST', body: JSON.stringify({ who, title, due }) }),
+      deleteReminder: id => req(`/reminders/${id}`, { method: 'DELETE' }),
+      getExam: cat => req(`/exam${cat ? `?cat=${cat}` : ''}`),
+      createExam: payload => req('/exam', { method: 'POST', body: JSON.stringify(payload) }),
+      deleteExam: id => req(`/exam/${id}`, { method: 'DELETE' }),
+      deleteRequest: id => req(`/requests/${id}`, { method: 'DELETE' }),
+      clearRequests: status => req(`/requests${status ? `?status=${status}` : ''}`, { method: 'DELETE' }),
+      getContact: () => req('/contact'),
+      updateContact: payload => req('/contact', { method: 'POST', body: JSON.stringify(payload) })
+    };
+
+    // Category specifications (strictly rectangular enterprise inputs, no emojis, clean placeholders)
+    const RT = {
+      leave: {
+        l: 'Leave Application',
+        short: 'Leave',
+        desc: 'Request academic or hostel leave with dates and official justification.',
+        f: [
+          { k: 'from_date', l: 'From Date', t: 'date', placeholder: '' },
+          { k: 'to_date', l: 'To Date', t: 'date', placeholder: '' },
+          { k: 'reason', l: 'Reason and Justification', t: 'textarea', placeholder: 'State academic, medical, or personal reason.' }
+        ]
+      },
+      gate_pass: {
+        l: 'Gate Pass Request',
+        short: 'Gate Pass',
+        desc: 'Request movement authorization outside campus premises.',
+        f: [
+          { k: 'out_date', l: 'Departure Date', t: 'date', placeholder: '' },
+          { k: 'out_time', l: 'Out Time', t: 'time', placeholder: '' },
+          { k: 'in_time', l: 'Expected In Time', t: 'time', placeholder: '' },
+          { k: 'reason', l: 'Purpose of Movement', t: 'textarea', placeholder: 'Provide specific reason and destination.' }
+        ]
+      },
+      hostel_complaint: {
+        l: 'Hostel Maintenance Complaint',
+        short: 'Hostel Complaint',
+        desc: 'Report electrical, plumbing, sanitation, or network faults in hostel premises.',
+        f: [
+          { k: 'location', l: 'Block and Room Location', t: 'text', placeholder: 'e.g. Block B, Room 214' },
+          { k: 'issue', l: 'Detailed Description of Maintenance Fault', t: 'textarea', placeholder: 'Describe the issue clearly.' }
+        ]
+      },
+      fee_query: {
+        l: 'Accounts and Fee Query',
+        short: 'Fee Query',
+        desc: 'Submit transaction references or clarify tuition, hostel, and mess dues.',
+        f: [
+          { k: 'category', l: 'Fee Category', t: 'select', o: ['Library', 'Semester Tuition', 'Mess Dues', 'Hostel Dues', 'Examination Fee'] },
+          { k: 'message', l: 'Transaction Reference and Query Details', t: 'textarea', placeholder: 'Include receipt number, UTR number, and payment date.' }
+        ]
+      }
+    };
+
+    const SL = {
+      pending: 'Pending Review',
+      in_progress: 'Under Review',
+      resolved: 'Resolved',
+      rejected: 'Rejected'
+    };
+
+    const EX_CATS = ['datesheet', 'syllabus', 'portions', 'pyq'];
+    const EX_LABEL = {
+      datesheet: 'Datesheets',
+      syllabus: 'Syllabus',
+      portions: 'Portions',
+      pyq: 'Question Papers'
+    };
+
+    const now = new Date().toISOString().split('T')[0];
+
+    // Local in-memory caches populated from backend API
+    let db = {
+      notices: [],
+      requests: [],
+      reminders: [],
+      exam: [],
+      contact: null
+    };
+
+    // State
+    let s = {
+      loggedRole: null,
+      user: null,
+      authRole: 'student',
+      authMode: 'login',
+      err: '',
+      tab: 'notices',
+      subExam: 'datesheet',
+      search: '',
+      open: null,
+      newType: null,
+      reqFilter: 'all',
+      activeModal: null,
+      loading: false
+    };
+
+    const app = document.getElementById('app');
+    app.addEventListener('click', onClick);
+    app.addEventListener('submit', onSubmit);
+
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = 'toast-pill';
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.2s ease';
+        setTimeout(() => toast.remove(), 200);
+      }, 3200);
+    }
+
+    // Initial data synchronization from backend API
+    async function syncData() {
+      try {
+        if (!db.contact) {
+          db.contact = await api.getContact();
+        }
+      } catch(e) {}
+
+      if (!s.loggedRole || !s.user) {
+        render();
+        return;
+      }
+
+      try {
+        const [notices, requests, reminders, exam, contact] = await Promise.all([
+          api.getNotices(),
+          api.getRequests(s.user.name, s.loggedRole),
+          s.loggedRole === 'student' ? api.getReminders(s.user.name) : Promise.resolve([]),
+          api.getExam(s.subExam),
+          api.getContact()
+        ]);
+        db.notices = notices;
+        db.requests = requests;
+        db.reminders = reminders;
+        db.exam = exam;
+        db.contact = contact;
+      } catch (err) {
+        console.error('Failed to synchronize data with backend server:', err);
+      }
+      render();
+    }
+
+    function match(txt) {
+      if (!s.search) return true;
+      return (txt || '').toLowerCase().includes(s.search.toLowerCase());
+    }
+
+    function badge(st) {
+      return `<span class="badge ${st}"><span class="badge-dot"></span>${SL[st] || st}</span>`;
+    }
+
+    function getInitials(name) {
+      if (!name) return 'ID';
+      const p = name.trim().split(/\s+/);
+      return p.length === 1 ? p[0].slice(0, 2).toUpperCase() : (p[0][0] + p[p.length - 1][0]).toUpperCase();
+    }
+
+    // Crisp Monochrome Line Icons (No emojis)
+    const Icons = {
+      shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>`,
+      notice: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
+      request: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>`,
+      plus: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
+      calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+      book: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+      search: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+      chevron: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>`,
+      check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`,
+      clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+      clip: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>`,
+      trash: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`
+    };
+
+    function fieldHTML(f) {
+      if (f.t === 'textarea') {
+        return `<div class="form-group full"><label>${f.l}</label><textarea name="${f.k}" placeholder="${f.placeholder || ''}" required></textarea></div>`;
+      }
+      if (f.t === 'select') {
+        return `<div class="form-group"><label>${f.l}</label><select name="${f.k}" required><option value="" selected disabled>Select Category</option>${f.o.map(o => `<option value="${o}">${o}</option>`).join('')}</select></div>`;
+      }
+      return `<div class="form-group"><label>${f.l}</label><input type="${f.t}" name="${f.k}" placeholder="${f.placeholder || ''}" required /></div>`;
+    }
+
+    async function onClick(e) {
+      const a = e.target.closest('[data-a]');
+      if (!a) return;
+      const d = a.dataset;
+
+      if (d.a === 'role') { s.authRole = d.v; s.err = ''; return render(); }
+      if (d.a === 'authmode') { s.authMode = d.v; s.err = ''; return render(); }
+      if (d.a === 'tab') { s.tab = d.v; s.open = null; s.newType = null; return render(); }
+      if (d.a === 'subExam') {
+        s.subExam = d.v;
+        try {
+          db.exam = await api.getExam(s.subExam);
+        } catch (err) {
+          console.error(err);
+        }
+        return render();
+      }
+      if (d.a === 'pickType') { s.newType = d.v; return render(); }
+      if (d.a === 'cancelNew') { s.newType = null; return render(); }
+      if (d.a === 'open') { s.open = (s.open === d.id ? null : d.id); return render(); }
+      if (d.a === 'filterReq') { s.reqFilter = d.v; return render(); }
+      if (d.a === 'openModal') { s.activeModal = d.v; return render(); }
+      if (d.a === 'closeModal') { s.activeModal = null; return render(); }
+
+      if (d.a === 'logout') {
+        s.loggedRole = null;
+        s.user = null;
+        s.tab = 'notices';
+        s.open = null;
+        s.search = '';
+        showToast('Signed out of session');
+        return render();
+      }
+
+      if (d.a === 'delNotice') {
+        try {
+          await api.deleteNotice(d.id);
+          db.notices = db.notices.filter(n => n.id !== d.id);
+          showToast('Circular removed successfully');
+          render();
+        } catch (err) {
+          alert('Could not delete notice: ' + err.message);
+        }
+        return;
+      }
+
+      if (d.a === 'delExam') {
+        try {
+          await api.deleteExam(d.id);
+          db.exam = db.exam.filter(x => x.id !== d.id);
+          showToast('Publication entry removed');
+          render();
+        } catch (err) {
+          alert('Could not delete exam publication: ' + err.message);
+        }
+        return;
+      }
+
+      if (d.a === 'delRem') {
+        try {
+          await api.deleteReminder(d.id);
+          db.reminders = db.reminders.filter(r => r.id !== d.id);
+          showToast('Course milestone marked complete');
+          render();
+        } catch (err) {
+          alert('Could not complete reminder: ' + err.message);
+        }
+        return;
+      }
+
+      if (d.a === 'status') {
+        try {
+          const updated = await api.updateRequestStatus(d.id, d.v);
+          const idx = db.requests.findIndex(r => r.id === d.id);
+          if (idx !== -1) db.requests[idx] = updated;
+          showToast('Application updated to: ' + SL[d.v]);
+          render();
+        } catch (err) {
+          alert('Could not update status: ' + err.message);
+        }
+        return;
+      }
+
+      if (d.a === 'delReq') {
+        if (!confirm('Are you sure you want to clear this request record?')) return;
+        try {
+          await api.deleteRequest(d.id);
+          db.requests = db.requests.filter(r => r.id !== d.id);
+          showToast('Request cleared successfully');
+          render();
+        } catch (err) {
+          alert('Could not clear request: ' + err.message);
+        }
+        return;
+      }
+
+      if (d.a === 'clearCompletedReqs') {
+        if (!confirm('Clear all resolved and rejected request records?')) return;
+        try {
+          await api.clearRequests('resolved');
+          await api.clearRequests('rejected');
+          db.requests = db.requests.filter(r => r.status !== 'resolved' && r.status !== 'rejected');
+          showToast('Resolved and rejected requests cleared');
+          render();
+        } catch (err) {
+          alert('Could not clear completed requests: ' + err.message);
+        }
+        return;
+      }
+
+      if (d.a === 'clearAllReqs') {
+        if (!confirm('Are you sure you want to clear ALL request records?')) return;
+        try {
+          await api.clearRequests();
+          db.requests = [];
+          showToast('All request records cleared');
+          render();
+        } catch (err) {
+          alert('Could not clear requests: ' + err.message);
+        }
+        return;
+      }
+
+      if (d.a === 'reset') {
+        s.loggedRole = null;
+        s.user = null;
+        s.err = '';
+        s.tab = 'notices';
+        showToast('Logged out of system');
+        return render();
+      }
+    }
+
+    async function onSubmit(e) {
+      e.preventDefault();
+      const f = e.target;
+
+      if (f.id === 'loginForm') {
+        const idKey = s.authRole === 'student' ? 'roll' : 'emp';
+        const idVal = f.elements[idKey].value.trim();
+        const pass = f.elements.pass.value;
+
+        try {
+          s.loading = true;
+          render();
+          const res = await api.login(idVal, pass, s.authRole);
+          s.loggedRole = res.role;
+          s.user = res.user;
+          s.err = '';
+          s.tab = 'notices';
+          s.loading = false;
+          showToast('Authentication verified');
+          await syncData();
+        } catch (err) {
+          s.loading = false;
+          s.err = err.message;
+          render();
+        }
+        return;
+      }
+
+      if (f.id === 'signupForm') {
+        const idKey = s.authRole === 'student' ? 'roll' : 'emp';
+        const payload = {
+          role: s.authRole,
+          id: f.elements[idKey].value.trim(),
+          pass: f.elements.pass.value,
+          name: f.elements.name.value.trim(),
+          branch: s.authRole === 'student' ? f.elements.branch.value : undefined,
+          hosteller: s.authRole === 'student' && f.elements.hosteller ? f.elements.hosteller.checked : false,
+          room: s.authRole === 'student' && f.elements.hosteller && f.elements.hosteller.checked ? f.elements.room.value.trim() : ''
+        };
+
+        try {
+          s.loading = true;
+          render();
+          const res = await api.signup(payload);
+          s.loggedRole = res.role;
+          s.user = res.user;
+          s.err = '';
+          s.tab = 'notices';
+          s.loading = false;
+          showToast('Account registered successfully');
+          await syncData();
+        } catch (err) {
+          s.loading = false;
+          s.err = err.message;
+          render();
+        }
+        return;
+      }
+
+      if (f.id === 'noticeForm') {
+        try {
+          const newNotice = await api.createNotice(f.title.value.trim(), f.body.value.trim());
+          db.notices.unshift(newNotice);
+          f.reset();
+          showToast('Circular published successfully');
+          render();
+        } catch (err) {
+          alert('Failed to publish notice: ' + err.message);
+        }
+        return;
+      }
+
+      if (f.id === 'newReqForm') {
+        const def = RT[s.newType];
+        const fl = {};
+        def.f.forEach(x => fl[x.k] = f.elements[x.k].value);
+
+        try {
+          const newReq = await api.createRequest({
+            type: s.newType,
+            who: s.user.name,
+            branch: s.user.branch || 'General',
+            f: fl
+          });
+          db.requests.unshift(newReq);
+          s.newType = null;
+          s.tab = 'my';
+          showToast('Application submitted: ' + newReq.id);
+          render();
+        } catch (err) {
+          alert('Failed to submit application: ' + err.message);
+        }
+        return;
+      }
+
+      if (f.id === 'noteForm') {
+        try {
+          const updated = await api.addRequestNote(s.open, s.user.name, f.note.value.trim());
+          const idx = db.requests.findIndex(r => r.id === s.open);
+          if (idx !== -1) db.requests[idx] = updated;
+          f.reset();
+          showToast('Official note recorded');
+          render();
+        } catch (err) {
+          alert('Failed to add remark: ' + err.message);
+        }
+        return;
+      }
+
+      if (f.id === 'remForm') {
+        try {
+          const newRem = await api.createReminder(s.user.name, f.title.value.trim(), f.due.value);
+          db.reminders.unshift(newRem);
+          f.reset();
+          showToast('Course milestone saved');
+          render();
+        } catch (err) {
+          alert('Failed to save reminder: ' + err.message);
+        }
+        return;
+      }
+
+      if (f.id === 'examForm') {
+        const fileInput = document.getElementById('examMediaFileInput');
+        const linkInput = document.getElementById('examMediaLinkInput');
+        let mediaData = linkInput ? linkInput.value.trim() : '';
+        let mediaName = mediaData ? (mediaData.split('/').pop() || 'Attached Document') : '';
+
+        const proceedSubmit = async (finalMedia, finalName) => {
+          try {
+            const newExam = await api.createExam({
+              cat: s.subExam,
+              branch: f.branch.value.trim().toUpperCase(),
+              sem: f.sem.value.trim(),
+              title: f.title.value.trim(),
+              content: f.content.value.trim(),
+              media: finalMedia || '',
+              media_name: finalName || ''
+            });
+            db.exam.unshift(newExam);
+            f.reset();
+            if (fileInput) fileInput.value = '';
+            showToast('Exam publication with media uploaded');
+            render();
+          } catch (err) {
+            alert('Failed to publish exam material: ' + err.message);
+          }
+        };
+
+        if (fileInput && fileInput.files && fileInput.files[0]) {
+          const file = fileInput.files[0];
+          const reader = new FileReader();
+          reader.onload = async function(ev) {
+            await proceedSubmit(ev.target.result, file.name);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          await proceedSubmit(mediaData, mediaName);
+        }
+        return;
+      }
+
+      if (f.id === 'contactForm') {
+        try {
+          const payload = {
+            email: f.email.value.trim(),
+            phone: f.phone.value.trim(),
+            office: f.office.value.trim(),
+            hours: f.hours.value.trim(),
+            emergency: f.emergency.value.trim()
+          };
+          const updated = await api.updateContact(payload);
+          db.contact = updated;
+          showToast('Institutional contact information updated');
+          s.activeModal = null;
+          render();
+        } catch (err) {
+          alert('Failed to update contact info: ' + err.message);
+        }
+        return;
+      }
+    }
+
+    function authScreen() {
+      const isSt = s.authRole === 'student';
+      return `
+      <div class="auth-container">
+        <div class="auth-panel">
+          <div class="auth-header">
+            <div class="auth-crest-wrap">${Icons.shield}</div>
+            <h1 class="auth-title">CampusEase</h1>
+            <p class="auth-desc">Academic & Administrative Operations Portal</p>
+          </div>
+
+          <div class="role-toggle">
+            <button data-a="role" data-v="student" class="role-toggle-btn ${isSt ? 'active' : ''}">Student Authentication</button>
+            <button data-a="role" data-v="admin" class="role-toggle-btn ${!isSt ? 'active' : ''}">Faculty / Admin</button>
+          </div>
+
+          <form id="${s.authMode === 'login' ? 'loginForm' : 'signupForm'}">
+            ${s.authMode === 'signup' ? `
+              <div class="form-group">
+                <label>Official Full Name</label>
+                <input name="name" required placeholder="Enter Full Name" autocomplete="name" />
+              </div>
+            ` : ''}
+
+            <div class="form-group">
+              <label>${isSt ? 'Student Roll Number' : 'Employee ID'}</label>
+              <input name="${isSt ? 'roll' : 'emp'}" required placeholder="${isSt ? 'Enter Roll Number' : 'Enter Employee ID'}" autocomplete="username" />
+            </div>
+
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="pass" required placeholder="Enter Password" autocomplete="current-password" />
+            </div>
+
+            ${s.authMode === 'signup' && isSt ? `
+              <div class="form-group">
+                <label>Department / Branch</label>
+                <select name="branch" required>
+                  <option value="" selected disabled>Select Department</option>
+                  <option value="CSE">Computer Science & Engineering</option>
+                  <option value="ECE">Electronics & Communication</option>
+                  <option value="ME">Mechanical Engineering</option>
+                  <option value="CE">Civil Engineering</option>
+                </select>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;margin:8px 0;">
+                <input type="checkbox" id="hst" name="hosteller" style="width:auto;" />
+                <label for="hst" style="margin:0;cursor:pointer;font-size:12px;">Registered Hosteller</label>
+              </div>
+              <div class="form-group">
+                <label>Room Number</label>
+                <input name="room" placeholder="Enter Room Number (if hosteller)" />
+              </div>
+            ` : ''}
+
+            ${s.err ? `<div style="color:var(--status-rej-text);background:var(--status-rej-bg);border:1px solid var(--status-rej-border);padding:10px 12px;font-size:12px;border-radius:var(--radius);">${s.err}</div>` : ''}
+
+            <button class="btn btn-primary" style="width:100%;margin-top:10px;padding:9px;" type="submit" ${s.loading ? 'disabled' : ''}>
+              ${s.loading ? 'Authenticating...' : (s.authMode === 'login' ? 'Authenticate System Session' : 'Register Authorized Account')}
+            </button>
+          </form>
+
+          <div style="text-align:center;font-size:12px;color:var(--slate-500);border-top:1px solid var(--line);padding-top:12px;">
+            ${s.authMode === 'login'
+              ? `New registration: <a href="#" data-a="authmode" data-v="signup" style="color:var(--primary);font-weight:600;">Sign up</a>`
+              : `Existing account: <a href="#" data-a="authmode" data-v="login" style="color:var(--primary);font-weight:600;">Log in</a>`}
+          </div>
+
+        </div>
+      </div>`;
+    }
+
+    function topbar() {
+      const tabsSt = [
+        ['notices', 'Notices', Icons.notice],
+        ['new', 'New Request', Icons.plus],
+        ['my', 'My Applications', Icons.request],
+        ['reminders', 'Academic Reminders', Icons.calendar],
+        ['exam', 'Exam Cell', Icons.book]
+      ];
+      const tabsAd = [
+        ['notices', 'Notices', Icons.notice],
+        ['requests', 'REQUESTS', Icons.request],
+        ['exam', 'Exam Cell', Icons.book]
+      ];
+      const tabs = s.loggedRole === 'student' ? tabsSt : tabsAd;
+
+      return `
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="brand-wrap" data-a="tab" data-v="notices">
+            <div class="brand-icon">${Icons.shield}</div>
+            <div class="brand-title">
+              CampusEase
+              <span class="brand-badge">${s.loggedRole === 'student' ? 'Student Portal' : 'Faculty Admin'}</span>
+            </div>
+          </div>
+
+          <div class="system-status-indicator">
+            <span>Academic Portal | Session 2026-27</span>
+          </div>
+        </div>
+
+        <nav class="nav-tabs">
+          ${tabs.map(([v, l, icon]) => `
+            <button data-a="tab" data-v="${v}" class="nav-tab-btn ${s.tab === v ? 'active' : ''}">
+              ${icon} <span>${l}</span>
+            </button>
+          `).join('')}
+        </nav>
+
+        <div class="top-actions">
+          <div class="search-box-wrap">
+            <span class="search-icon-svg">${Icons.search}</span>
+            <input class="search-input search" placeholder="Search ${s.tab}..." value="${s.search}" />
+          </div>
+          <button class="btn btn-dark-subtle btn-sm" data-a="reset">Sign Out</button>
+        </div>
+      </header>`;
+    }
+
+    function userRibbon() {
+      const isSt = s.loggedRole === 'student';
+      return `
+      <div class="user-ribbon">
+        <div class="user-meta-group">
+          <div class="user-avatar-rect">${getInitials(s.user.name)}</div>
+          <div class="user-details">
+            <span class="user-name">${s.user.name}</span>
+            <span class="role-tag">${s.loggedRole}</span>
+            ${isSt ? `
+              <span class="meta-tag">Roll: ${s.user.roll}</span>
+              <span class="meta-tag">Dept: ${s.user.branch}</span>
+              ${s.user.hosteller ? `<span class="meta-tag">Hostel Room: ${s.user.room || 'Resident'}</span>` : '<span class="meta-tag">Day Scholar</span>'}
+            ` : `
+              <span class="meta-tag">ID: ${s.user.emp}</span>
+              <span class="meta-tag">Academic Affairs</span>
+            `}
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="session-badge">
+            <span style="color:var(--slate-400);">${Icons.clock}</span>
+            <span>AY 2026 - 2027 | Autumn Term</span>
+          </div>
+          ${isSt ? `
+            <button class="btn btn-primary btn-sm" data-a="tab" data-v="new">New Clearance Request</button>
+          ` : `
+            <button class="btn btn-primary btn-sm" data-a="tab" data-v="requests">REQUESTS (${db.requests.filter(r => r.status === 'pending').length})</button>
+          `}
+        </div>
+      </div>`;
+    }
+
+    function statsBar() {
+      const isSt = s.loggedRole === 'student';
+      const myReqs = isSt ? db.requests.filter(r => r.who === s.user.name) : db.requests;
+      const pendingCount = myReqs.filter(r => r.status === 'pending').length;
+      const noticeCount = db.notices.length;
+      const reminderCount = isSt ? db.reminders.filter(r => r.who === s.user.name).length : db.requests.filter(r => r.status === 'resolved').length;
+      const examCount = db.exam.length;
+
+      return `
+      <div class="stats-bar">
+        <div class="stat-box ${s.tab === (isSt ? 'my' : 'requests') ? 'active-tab-stat' : ''}" data-a="tab" data-v="${isSt ? 'my' : 'requests'}">
+          <div class="stat-header">
+            <span class="stat-label">Pending Review</span>
+            <span class="stat-indicator-dot amber"></span>
+          </div>
+          <div class="stat-number">${pendingCount}</div>
+          <div class="stat-footer-text">
+            <span>Awaiting determination</span>
+            <span style="font-weight:600;color:var(--primary);">View &rarr;</span>
+          </div>
+        </div>
+
+        <div class="stat-box ${s.tab === 'notices' ? 'active-tab-stat' : ''}" data-a="tab" data-v="notices">
+          <div class="stat-header">
+            <span class="stat-label">Active Notices</span>
+            <span class="stat-indicator-dot blue"></span>
+          </div>
+          <div class="stat-number">${noticeCount}</div>
+          <div class="stat-footer-text">
+            <span>Official circulars</span>
+            <span style="font-weight:600;color:var(--primary);">View &rarr;</span>
+          </div>
+        </div>
+
+        <div class="stat-box ${s.tab === (isSt ? 'reminders' : 'requests') ? 'active-tab-stat' : ''}" data-a="tab" data-v="${isSt ? 'reminders' : 'requests'}">
+          <div class="stat-header">
+            <span class="stat-label">${isSt ? 'Course Deadlines' : 'Resolved Records'}</span>
+            <span class="stat-indicator-dot green"></span>
+          </div>
+          <div class="stat-number">${reminderCount}</div>
+          <div class="stat-footer-text">
+            <span>${isSt ? 'Scheduled milestones' : 'Approved tickets'}</span>
+            <span style="font-weight:600;color:var(--primary);">View &rarr;</span>
+          </div>
+        </div>
+
+        <div class="stat-box ${s.tab === 'exam' ? 'active-tab-stat' : ''}" data-a="tab" data-v="exam">
+          <div class="stat-header">
+            <span class="stat-label">Exam Publications</span>
+            <span class="stat-indicator-dot slate"></span>
+          </div>
+          <div class="stat-number">${examCount}</div>
+          <div class="stat-footer-text">
+            <span>Timetables & syllabus</span>
+            <span style="font-weight:600;color:var(--primary);">View &rarr;</span>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    function noticesView() {
+      const list = db.notices.filter(n => match(n.title + ' ' + n.body));
+      const isAdmin = s.loggedRole === 'admin';
+
+      return `
+      <div>
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Campus Announcements and Circulars</h2>
+            <p class="page-subtitle">Official communications from academic, examination, and hostel administrations.</p>
+          </div>
+        </div>
+
+        ${isAdmin ? `
+          <div class="card" style="margin-top:16px;border-left:3px solid var(--primary);">
+            <div class="card-title">
+              <span>Publish Official Circular</span>
+              <span class="role-tag">Administrative Dispatch</span>
+            </div>
+            <form id="noticeForm">
+              <div class="form-group">
+                <label>Notice Subject Line</label>
+                <input name="title" required placeholder="Enter Subject Line" />
+              </div>
+              <div class="form-group">
+                <label>Official Body and Directives</label>
+                <textarea name="body" required placeholder="Enter details, dates, or directives"></textarea>
+              </div>
+              <button class="btn btn-primary" type="submit">Publish Circular</button>
+            </form>
+          </div>
+        ` : ''}
+
+        <div style="margin-top:16px;">
+          ${list.map(n => `
+            <div class="card" style="margin-bottom:12px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <h3 style="font-size:15px;font-weight:700;color:var(--slate-900);line-height:1.4;">${n.title}</h3>
+                <span class="id-badge">${n.at}</span>
+              </div>
+              <p style="font-size:13.5px;color:var(--slate-700);line-height:1.6;margin-top:10px;">${n.body}</p>
+              ${isAdmin ? `
+                <div style="display:flex;justify-content:flex-end;margin-top:12px;border-top:1px solid var(--line);padding-top:8px;">
+                  <button class="btn btn-danger btn-sm" data-a="delNotice" data-id="${n.id}">Remove Notice</button>
+                </div>
+              ` : ''}
+            </div>
+          `).join('') || `
+            <div class="card" style="text-align:center;padding:32px;color:var(--slate-500);">
+              No circulars found matching the filter query.
+            </div>
+          `}
+        </div>
+      </div>`;
+    }
+
+    function reqDetail(r) {
+      const def = RT[r.type];
+      const isAdmin = s.loggedRole === 'admin';
+      const next = {
+        pending: [['in_progress', 'Move to Review', 'btn-primary'], ['rejected', 'Reject Application', 'btn-danger']],
+        in_progress: [['resolved', 'Approve and Finalize', 'btn-success'], ['rejected', 'Reject Application', 'btn-danger']],
+        resolved: [],
+        rejected: []
+      }[r.status];
+
+      const isDone = r.status === 'resolved';
+      const isRej = r.status === 'rejected';
+      const isProg = r.status === 'in_progress';
+
+      return `
+      <div class="detail-panel">
+        <div class="lifecycle-stepper">
+          <div class="step-item">
+            <div class="step-circle complete">${Icons.check}</div>
+            <span class="step-title">1. Submitted</span>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step-item">
+            <div class="step-circle ${isProg || isDone || isRej ? 'complete' : 'active'}">
+              ${isProg || isDone || isRej ? Icons.check : '2'}
+            </div>
+            <span class="step-title">2. Under Review</span>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step-item">
+            <div class="step-circle ${isDone ? 'complete' : (isRej ? 'active' : '')}">
+              ${isDone ? Icons.check : (isRej ? 'X' : '3')}
+            </div>
+            <span class="step-title">3. ${isRej ? 'Rejected' : (isDone ? 'Approved' : 'Determination')}</span>
+          </div>
+        </div>
+
+        <div class="kv-grid">
+          ${def.f.map(f => `
+            <div class="kv-item">
+              <span class="kv-key">${f.l}</span>
+              <span class="kv-val">${r.f[f.k] || 'N/A'}</span>
+            </div>
+          `).join('')}
+          <div class="kv-item">
+            <span class="kv-key">Applicant</span>
+            <span class="kv-val">${r.who} (${r.branch})</span>
+          </div>
+        </div>
+
+        <div class="audit-trail">
+          <strong style="color:var(--slate-800);">Audit Lifecycle:</strong>
+          <span>${r.hist.map(h => SL[h.s] + ' [' + h.at + ']').join(' &rarr; ')}</span>
+        </div>
+
+        ${isAdmin && next.length ? `
+          <div style="display:flex;gap:8px;align-items:center;background:var(--slate-100);padding:10px 14px;border-radius:var(--radius);border:1px solid var(--slate-200);">
+            <span style="font-size:11.5px;font-weight:700;text-transform:uppercase;color:var(--slate-700);margin-right:4px;">Workflow Action:</span>
+            ${next.map(([v, l, cls]) => `
+              <button class="btn btn-sm ${cls}" data-a="status" data-id="${r.id}" data-v="${v}">${l}</button>
+            `).join('')}
+          </div>
+        ` : ''}
+
+        <div style="margin-top:6px;">
+          <div style="font-size:11.5px;font-weight:700;color:var(--slate-700);text-transform:uppercase;margin-bottom:8px;">
+            Official Communication Records (${r.notes.length})
+          </div>
+          ${r.notes.map(n => `
+            <div class="note-entry">
+              <div class="note-header">
+                <span>${n.by}</span>
+                <span style="font-weight:500;font-family:var(--font-mono);">${n.at}</span>
+              </div>
+              <div class="note-body">${n.t}</div>
+            </div>
+          `).join('')}
+          ${r.notes.length === 0 ? `<div style="font-size:12.5px;color:var(--slate-400);font-style:italic;">No formal notes attached.</div>` : ''}
+
+          ${isAdmin ? `
+            <form id="noteForm" style="display:flex;gap:8px;margin-top:10px;">
+              <input name="note" placeholder="Add administrative note or applicant instruction..." required style="flex:1;" />
+              <button class="btn btn-secondary btn-sm" type="submit">Append Note</button>
+            </form>
+            <div style="display:flex;justify-content:flex-end;margin-top:10px;border-top:1px solid var(--line);padding-top:8px;">
+              <button class="btn btn-danger btn-sm" data-a="delReq" data-id="${r.id}">${Icons.trash} Clear This Request</button>
+            </div>
+          ` : ''}
+        </div>
+      </div>`;
+    }
+
+    function newRequestView() {
+      if (!s.newType) {
+        return `
+        <div>
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Submit Administrative Application</h2>
+              <p class="page-subtitle">Select the required institutional category to initiate an approval ticket.</p>
+            </div>
+          </div>
+
+          <div class="req-selection-grid" style="margin-top:16px;">
+            ${Object.entries(RT).map(([k, def]) => `
+              <div class="req-card" data-a="pickType" data-v="${k}">
+                <div class="req-card-icon-wrap">${Icons.request}</div>
+                <div class="req-card-title">${def.l}</div>
+                <div class="req-card-desc">${def.desc}</div>
+                <div class="req-card-action">Initiate Application &rarr;</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>`;
+      }
+
+      const def = RT[s.newType];
+      return `
+      <div style="max-width:680px;margin:0 auto;width:100%;">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">${def.l}</h2>
+            <p class="page-subtitle">${def.desc}</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" data-a="cancelNew">&larr; Back to Categories</button>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <form id="newReqForm">
+            <div class="form-grid">
+              ${def.f.map(f => fieldHTML(f)).join('')}
+            </div>
+            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:16px;border-top:1px solid var(--line);padding-top:12px;">
+              <button class="btn btn-secondary" type="button" data-a="cancelNew">Cancel</button>
+              <button class="btn btn-primary" type="submit">Submit for Review</button>
+            </div>
+          </form>
+        </div>
+      </div>`;
+    }
+
+    function requestsView() {
+      const isAdmin = s.loggedRole === 'admin';
+      let list = db.requests;
+      const counts = {
+        all: list.length,
+        pending: list.filter(r => r.status === 'pending').length,
+        in_progress: list.filter(r => r.status === 'in_progress').length,
+        resolved: list.filter(r => r.status === 'resolved').length,
+        rejected: list.filter(r => r.status === 'rejected').length
+      };
+
+      if (s.reqFilter !== 'all') {
+        list = list.filter(r => r.status === s.reqFilter);
+      }
+      list = list.filter(r => match(r.id + ' ' + r.who + ' ' + (RT[r.type]?.l || '') + ' ' + JSON.stringify(r.f)));
+
+      return `
+      <div>
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">${isAdmin ? 'REQUESTS' : 'Submitted Applications'}</h2>
+            <p class="page-subtitle">${isAdmin ? 'Process, audit, and provide determinations on student requests.' : 'Track the verified approval status of your clearance submissions.'}</p>
+          </div>
+          ${isAdmin ? `
+            <div style="display:flex;gap:8px;align-items:center;">
+              <button class="btn btn-secondary btn-sm" data-a="clearCompletedReqs" title="Clear resolved and rejected requests">Clear Completed</button>
+              <button class="btn btn-danger btn-sm" data-a="clearAllReqs" title="Clear all request records">${Icons.trash} Clear All</button>
+            </div>
+          ` : `<button class="btn btn-primary btn-sm" data-a="tab" data-v="new">+ New Application</button>`}
+        </div>
+
+        <div class="filter-group" style="margin-top:16px;">
+          <button class="filter-btn ${s.reqFilter === 'all' ? 'active' : ''}" data-a="filterReq" data-v="all">All (${counts.all})</button>
+          <button class="filter-btn ${s.reqFilter === 'pending' ? 'active' : ''}" data-a="filterReq" data-v="pending">Pending (${counts.pending})</button>
+          <button class="filter-btn ${s.reqFilter === 'in_progress' ? 'active' : ''}" data-a="filterReq" data-v="in_progress">Under Review (${counts.in_progress})</button>
+          <button class="filter-btn ${s.reqFilter === 'resolved' ? 'active' : ''}" data-a="filterReq" data-v="resolved">Resolved (${counts.resolved})</button>
+          <button class="filter-btn ${s.reqFilter === 'rejected' ? 'active' : ''}" data-a="filterReq" data-v="rejected">Rejected (${counts.rejected})</button>
+        </div>
+
+        <div>
+          ${list.map(r => `
+            <div class="table-list-item">
+              <div class="item-header" data-a="open" data-id="${r.id}">
+                <div>
+                  <div class="item-header-title">
+                    <span>${RT[r.type] ? RT[r.type].l : r.type}</span>
+                    <span class="id-badge">${r.id}</span>
+                  </div>
+                  <div class="item-meta">
+                    <span>Applicant: <strong>${r.who}</strong> (${r.branch})</span>
+                    <span>|</span>
+                    <span>Date: ${r.hist[0]?.at || now}</span>
+                    ${r.notes.length ? `<span>|</span><span>Remarks: ${r.notes.length}</span>` : ''}
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  ${badge(r.status)}
+                  <span style="color:var(--slate-400);">${Icons.chevron}</span>
+                </div>
+              </div>
+              ${s.open === r.id ? reqDetail(r) : ''}
+            </div>
+          `).join('') || `
+            <div class="card" style="text-align:center;padding:36px;color:var(--slate-500);">
+              No application records found under this status.
+            </div>
+          `}
+        </div>
+      </div>`;
+    }
+
+    function remindersView() {
+      const list = db.reminders.filter(rm => match(rm.title));
+      return `
+      <div>
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Academic Reminders & Deadlines</h2>
+            <p class="page-subtitle">Track laboratory sessions, coursework milestones, and project deliverables.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px;border-left:3px solid #166534;">
+          <div class="card-title">Add Coursework Milestone</div>
+          <form id="remForm">
+            <div class="form-grid">
+              <div class="form-group" style="grid-column: span 2;">
+                <label>Milestone / Task Name</label>
+                <input name="title" placeholder="Enter Task Name" required />
+              </div>
+              <div class="form-group">
+                <label>Submission Due Date</label>
+                <input type="date" name="due" required />
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" type="submit">Save Deadline</button>
+          </form>
+        </div>
+
+        <div style="margin-top:16px;">
+          ${list.map(rm => `
+            <div class="table-list-item" style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <div style="font-size:14.5px;font-weight:700;color:var(--slate-900);">${rm.title}</div>
+                <div style="font-size:12px;color:var(--slate-600);margin-top:3px;">
+                  Scheduled Due Date: <span class="id-badge">${rm.due}</span>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-sm" data-a="delRem" data-id="${rm.id}">Mark Completed</button>
+            </div>
+          `).join('') || `
+            <div class="card" style="text-align:center;padding:32px;color:var(--slate-500);">
+              No active coursework milestones registered.
+            </div>
+          `}
+        </div>
+      </div>`;
+    }
+
+    function examView() {
+      const isAdmin = s.loggedRole === 'admin';
+      const list = db.exam.filter(x => match(x.title + ' ' + x.content + ' ' + x.branch));
+
+      return `
+      <div>
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Exam Cell Publications</h2>
+            <p class="page-subtitle">Examination timetables, module syllabus outlines, portions, and archive question papers.</p>
+          </div>
+        </div>
+
+        <div class="subtabs-bar" style="margin-top:16px;">
+          ${EX_CATS.map(c => `
+            <button class="subtab-btn ${s.subExam === c ? 'active' : ''}" data-a="subExam" data-v="${c}">${EX_LABEL[c]}</button>
+          `).join('')}
+        </div>
+
+        ${isAdmin ? `
+          <div class="card" style="margin-bottom:16px;border-left:3px solid var(--primary);">
+            <div class="card-title">Publish ${EX_LABEL[s.subExam]} Entry</div>
+            <form id="examForm">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Department / Branch</label>
+                  <input name="branch" placeholder="e.g. CSE" required />
+                </div>
+                <div class="form-group">
+                  <label>Semester</label>
+                  <input name="sem" placeholder="e.g. 5" required />
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                  <label>Publication Title</label>
+                  <input name="title" placeholder="Enter Publication Title" required />
+                </div>
+                <div class="form-group full">
+                  <label>Content and Schedule Outlines</label>
+                  <textarea name="content" required placeholder="Enter schedule dates, syllabus units, or document references."></textarea>
+                </div>
+                <div class="form-group full">
+                  <label>Media / Document Attachment (Optional)</label>
+                  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                    <input type="file" id="examMediaFileInput" style="flex:1;" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.zip,.txt" />
+                    <input name="media_link" id="examMediaLinkInput" placeholder="Or enter document/media URL or reference" style="flex:1;" />
+                  </div>
+                  <span style="font-size:11px;color:var(--slate-500);margin-top:2px;">Attach syllabus PDF, datesheet image, portions document, or file link.</span>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm" type="submit">Publish to Student Directory</button>
+            </form>
+          </div>
+        ` : ''}
+
+        <div>
+          ${list.map(x => `
+            <div class="card" style="margin-bottom:12px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:15px;font-weight:700;color:var(--slate-900);">${x.title}</span>
+                    <span class="meta-tag" style="font-weight:700;">${x.branch} | Sem ${x.sem}</span>
+                  </div>
+                  <p style="font-size:13.5px;color:var(--slate-700);line-height:1.6;margin-top:8px;white-space:pre-line;">${x.content}</p>
+                  ${x.media ? `
+                    <div style="margin-top:10px;padding:8px 12px;background:var(--slate-50);border:1px solid var(--line);border-radius:var(--radius);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+                      <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--slate-800);">
+                        ${Icons.clip}
+                        <span>Attachment: ${x.media_name || 'Attached Document'}</span>
+                      </div>
+                      <a href="${x.media}" download="${x.media_name || 'document'}" target="_blank" class="btn btn-secondary btn-sm" style="text-decoration:none;">View / Download</a>
+                    </div>
+                    ${x.media.startsWith('data:image/') || /\.(png|jpe?g|webp|gif)$/i.test(x.media) ? `
+                      <div style="margin-top:8px;">
+                        <img src="${x.media}" alt="${x.title}" style="max-height:220px;border-radius:var(--radius);border:1px solid var(--line);display:block;" />
+                      </div>
+                    ` : ''}
+                  ` : ''}
+                </div>
+                ${isAdmin ? `<button class="btn btn-danger btn-sm" data-a="delExam" data-id="${x.id}">Delete</button>` : ''}
+              </div>
+            </div>
+          `).join('') || `
+            <div class="card" style="text-align:center;padding:32px;color:var(--slate-500);">
+              No publication records registered under ${EX_LABEL[s.subExam]}.
+            </div>
+          `}
+        </div>
+      </div>`;
+    }
+
+    function modalView() {
+      if (!s.activeModal) return '';
+
+      let title = '';
+      let body = '';
+
+      if (s.activeModal === 'privacy') {
+        title = 'Institutional Privacy Policy';
+        body = `
+          <p><strong>1. Data Collection Scope:</strong> CampusEase records student roll numbers, faculty identifiers, official emails, hostel residential status, attendance requests, and academic inquiries purely for educational administration.</p>
+          <p><strong>2. Information Handling:</strong> Student records are governed under academic confidentiality regulations. Access to disciplinary or gate-pass logs is restricted to authorized department proctors, wardens, and registrars.</p>
+          <p><strong>3. Authentication Security:</strong> Access tokens and session credentials must remain confidential. Automated or bot access to student records without authorization is strictly prohibited.</p>
+          <p><strong>4. Inquiries:</strong> For institutional data correction, contact the Office of the Registrar at registrar@campus.edu.</p>
+        `;
+      } else if (s.activeModal === 'terms') {
+        title = 'Terms and Conditions of Campus Portal Usage';
+        body = `
+          <p><strong>1. Authorized Access:</strong> This portal is dedicated exclusively to enrolled students and appointed faculty. Unauthorized access attempts are logged with IP attribution for university disciplinary action.</p>
+          <p><strong>2. Falsification of Requests:</strong> Misrepresentation of dates, medical leaves, or gate-pass movement reasons is considered a violation of the student honor code.</p>
+          <p><strong>3. Examination Materials:</strong> Datesheets, portion disclosures, and archive papers published here remain the intellectual property of the Examination Cell.</p>
+          <p><strong>4. Availability:</strong> Portal services undergo maintenance during semester breaks. Critical submissions should be performed ahead of hard deadlines.</p>
+        `;
+      } else if (s.activeModal === 'domain') {
+        title = 'Custom Domain & Production Deployment';
+        body = `
+          <p><strong>Configuring Custom Institutional Domain:</strong></p>
+          <ol style="margin-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+            <li>Map a DNS <code>CNAME</code> record pointing your custom domain (e.g., <code>portal.campus.edu</code>) to your hosting provider.</li>
+            <li>Verify SSL certificate installation for strict TLS 1.3 compliance.</li>
+            <li>Configure institutional Single Sign-On (SSO) via SAML / LDAP in your server environment if replacing file storage.</li>
+          </ol>
+        `;
+      } else if (s.activeModal === 'contact') {
+        const contact = db.contact || {
+          email: 'registrar@campusease.edu',
+          phone: '+1 (555) 019-2834',
+          office: 'Student Affairs & Registrar Office, Administration Block B, Room 102',
+          hours: 'Monday - Friday, 09:00 - 17:00',
+          emergency: 'Campus Security & Medical: ext 100 / +1 (555) 019-2899'
+        };
+        const isAdmin = s.loggedRole === 'admin';
+        title = 'Campus Administration & Helpdesk';
+
+        if (isAdmin) {
+          body = `
+            <div style="font-size:12px;color:var(--slate-600);margin-bottom:8px;">
+              <strong>Admin Mode:</strong> You can edit and update the official campus contact details published to students.
+            </div>
+            <form id="contactForm">
+              <div class="form-group">
+                <label>Official Inquiries Email</label>
+                <input name="email" value="${contact.email || ''}" required placeholder="e.g. registrar@campus.edu" />
+              </div>
+              <div class="form-group">
+                <label>Administrative Phone Number</label>
+                <input name="phone" value="${contact.phone || ''}" required placeholder="e.g. +1 (555) 019-2834" />
+              </div>
+              <div class="form-group">
+                <label>Registrar & Administrative Office Location</label>
+                <input name="office" value="${contact.office || ''}" required placeholder="e.g. Administration Block B, Room 102" />
+              </div>
+              <div class="form-group">
+                <label>Office Operating Hours</label>
+                <input name="hours" value="${contact.hours || ''}" required placeholder="e.g. Monday - Friday, 09:00 - 17:00" />
+              </div>
+              <div class="form-group">
+                <label>Emergency & Security Helpdesk</label>
+                <input name="emergency" value="${contact.emergency || ''}" required placeholder="e.g. Campus Security: ext 100" />
+              </div>
+              <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px;border-top:1px solid var(--line);padding-top:10px;">
+                <button class="btn btn-secondary btn-sm" type="button" data-a="closeModal">Cancel</button>
+                <button class="btn btn-primary btn-sm" type="submit">Save Updated Contact Details</button>
+              </div>
+            </form>
+          `;
+        } else {
+          body = `
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div class="kv-grid">
+                <div class="kv-item">
+                  <span class="kv-key">Official Inquiries Email</span>
+                  <span class="kv-val"><a href="mailto:${contact.email}" style="color:var(--primary);text-decoration:none;font-weight:600;">${contact.email}</a></span>
+                </div>
+                <div class="kv-item">
+                  <span class="kv-key">Administrative Telephone</span>
+                  <span class="kv-val"><a href="tel:${contact.phone}" style="color:var(--primary);text-decoration:none;font-weight:600;">${contact.phone}</a></span>
+                </div>
+              </div>
+              <div class="kv-grid">
+                <div class="kv-item">
+                  <span class="kv-key">Office Location</span>
+                  <span class="kv-val">${contact.office}</span>
+                </div>
+                <div class="kv-item">
+                  <span class="kv-key">Office Operating Hours</span>
+                  <span class="kv-val">${contact.hours}</span>
+                </div>
+              </div>
+              <div style="background:var(--slate-100);border:1px solid var(--slate-200);padding:10px 14px;border-radius:var(--radius);">
+                <span style="font-size:11px;font-weight:700;color:var(--slate-700);text-transform:uppercase;">Emergency Helpdesk & Campus Security:</span>
+                <div style="font-size:13px;font-weight:600;color:var(--slate-900);margin-top:4px;">${contact.emergency}</div>
+              </div>
+              <div style="font-size:11.5px;color:var(--slate-500);font-style:italic;">Need to update these details? Log in as Faculty/Admin to edit institutional contact records.</div>
+            </div>
+          `;
+        }
+      }
+
+      return `
+      <div class="modal-backdrop">
+        <div class="modal-window">
+          <div class="modal-header">
+            <div class="modal-title">${title}</div>
+            <button class="btn btn-secondary btn-sm" data-a="closeModal">Close</button>
+          </div>
+          <div class="modal-content">${body}</div>
+          ${s.activeModal === 'contact' && s.loggedRole === 'admin' ? '' : `
+            <div class="modal-footer">
+              <button class="btn btn-primary btn-sm" data-a="closeModal">Acknowledge</button>
+            </div>
+          `}
+        </div>
+      </div>`;
+    }
+
+    function siteFooter() {
+      return `
+      <footer class="site-footer">
+        <div>CampusEase</div>
+        <div class="footer-links">
+          <span class="footer-link" data-a="openModal" data-v="contact">Contact Us</span>
+        </div>
+      </footer>`;
+    }
+
+    function render() {
+      if (!s.loggedRole) {
+        app.innerHTML = authScreen() + modalView();
+        return;
+      }
+
+      let content = '';
+      if (s.tab === 'notices') content = noticesView();
+      else if (s.tab === 'new') content = newRequestView();
+      else if (s.tab === 'my' || s.tab === 'requests') content = requestsView();
+      else if (s.tab === 'reminders') content = remindersView();
+      else if (s.tab === 'exam') content = examView();
+
+      app.innerHTML = `
+        ${topbar()}
+        ${userRibbon()}
+        <div class="workspace-wrapper">
+          ${statsBar()}
+          <main>
+            ${content}
+          </main>
+        </div>
+        ${siteFooter()}
+        ${modalView()}
+      `;
+
+      const si = app.querySelector('.search');
+      if (si) {
+        si.addEventListener('input', e => {
+          s.search = e.target.value;
+          render();
+          const nsi = app.querySelector('.search');
+          if (nsi) {
+            nsi.focus();
+            nsi.selectionStart = nsi.selectionEnd = nsi.value.length;
+          }
+        });
+      }
+    }
+
+    render();
+    syncData();
+  })();
+  </script>
+</body>
+</html>
