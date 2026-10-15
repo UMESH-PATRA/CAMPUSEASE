@@ -9,7 +9,7 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="theme-color" content="#0b1329" />
+  <meta name="theme-color" content="#2b2118" />
   
   <!-- Modern Institutional Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,26 +18,36 @@
 
   <style>
     :root {
-      --primary: #1e40af;
-      --primary-hover: #1d4ed8;
-      --primary-light: #eff6ff;
-      --primary-border: #bfdbfe;
+      /* Warm Beige, White, Light Brown & Light Yellow Palette */
+      --primary: #824d26;             /* Warm Saddle / Hazelnut Brown */
+      --primary-hover: #6a3d1d;       /* Deep Cognac Brown */
+      --primary-light: #fdfaf3;       /* Delicate Warm Cream */
+      --primary-border: #dfcfbb;      /* Warm Beige Border */
       
-      --slate-950: #0b1329;
-      --slate-900: #0f172a;
-      --slate-800: #1e293b;
-      --slate-700: #334155;
-      --slate-600: #475569;
-      --slate-500: #64748b;
-      --slate-400: #94a3b8;
-      --slate-300: #cbd5e1;
-      --slate-200: #e2e8f0;
-      --slate-100: #f1f5f9;
-      --slate-50: #f8fafc;
+      --slate-950: #261e17;           /* Deep Espresso / Roasted Dark */
+      --slate-900: #33281f;           /* Rich Roasted Walnut */
+      --slate-800: #46382c;           /* Medium Dark Brown */
+      --slate-700: #5c4b3c;           /* Muted Umber */
+      --slate-600: #736150;           /* Warm Mocha Stone */
+      --slate-500: #8c7867;           /* Soft Earthy Sand */
+      --slate-400: #aba092;           /* Light Clay Border */
+      --slate-300: #d6ccbe;           /* Soft Beige Border */
+      --slate-200: #e8dfd3;           /* Light Beige Divider */
+      --slate-100: #f4ede3;           /* Warm Beige Background */
+      --slate-50: #fbf7f0;            /* Warm Parchment / Container Background */
       
-      --card-bg: #ffffff;
-      --line: #e2e8f0;
-      --line-subtle: #f1f5f9;
+      --card-bg: #ffffff;             /* Crisp Pure White */
+      --card-warm: #fdfbf7;           /* Soft Ivory Card */
+      --line: #e6ded3;                /* Clean Beige Border */
+      --line-subtle: #f0eae0;         /* Subtle Beige Line */
+
+      /* Light Yellow & Golden Accent Palette */
+      --yellow-50: #fefce8;
+      --yellow-100: #fef9c3;          /* Soft Light Yellow */
+      --yellow-200: #fef08a;          /* Light Golden Yellow */
+      --yellow-300: #fde047;          /* Vivid Golden Rim */
+      --yellow-700: #a16207;          /* Rich Amber Text */
+      --yellow-800: #854d0e;          /* Deep Gold Accent */
       
       /* Enterprise rectangular border radius */
       --radius: 6px;
@@ -47,16 +57,37 @@
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       
-      /* High-contrast status badges with dot indicators */
-      --status-pending-bg: #fffbeb;
-      --status-pending-text: #92400e;
-      --status-pending-border: #fde68a;
+      /* Incident Priority Color Badges */
+      --p1-crit-bg: #fef2f2;
+      --p1-crit-text: #991b1b;
+      --p1-crit-border: #fca5a5;
+      --p1-crit-dot: #dc2626;
+
+      --p2-high-bg: #fff7ed;
+      --p2-high-text: #9a3412;
+      --p2-high-border: #fed7aa;
+      --p2-high-dot: #ea580c;
+
+      --p3-med-bg: #fefce8;
+      --p3-med-text: #854d0e;
+      --p3-med-border: #fef08a;
+      --p3-med-dot: #ca8a04;
+
+      --p4-low-bg: #f4efe6;
+      --p4-low-text: #6b5c4c;
+      --p4-low-border: #dcd3c4;
+      --p4-low-dot: #8c7c6c;
+
+      /* Standard Status Indicators */
+      --status-pending-bg: #fefce8;
+      --status-pending-text: #854d0e;
+      --status-pending-border: #fef08a;
       --status-pending-dot: #d97706;
 
-      --status-prog-bg: #eff6ff;
-      --status-prog-text: #1e40af;
-      --status-prog-border: #bfdbfe;
-      --status-prog-dot: #2563eb;
+      --status-prog-bg: #fff7ed;
+      --status-prog-text: #9a3412;
+      --status-prog-border: #fed7aa;
+      --status-prog-dot: #ea580c;
 
       --status-res-bg: #f0fdf4;
       --status-res-text: #166534;
@@ -68,11 +99,11 @@
       --status-rej-border: #fecaca;
       --status-rej-dot: #dc2626;
 
-      /* Micro-elevations */
-      --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
-      --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
-      --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.08);
+      /* Tactile Micro-elevations */
+      --shadow-xs: 0 1px 2px rgba(44, 36, 28, 0.05);
+      --shadow-sm: 0 2px 4px rgba(44, 36, 28, 0.07), 0 1px 2px rgba(44, 36, 28, 0.04);
+      --shadow-md: 0 4px 8px -1px rgba(44, 36, 28, 0.09), 0 2px 4px -1px rgba(44, 36, 28, 0.05);
+      --shadow-lg: 0 10px 20px -3px rgba(44, 36, 28, 0.12), 0 4px 6px -2px rgba(44, 36, 28, 0.06);
     }
 
     * {
@@ -115,7 +146,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 2px 6px rgba(38, 30, 23, 0.25);
     }
 
     .topbar-left {
@@ -142,7 +173,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #93c5fd;
+      color: #fde047;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
     }
 
     .brand-icon svg { width: 18px; height: 18px; }
@@ -165,7 +197,7 @@
       padding: 2px 7px;
       background: var(--slate-800);
       border: 1px solid var(--slate-700);
-      color: #93c5fd;
+      color: #fef08a;
       border-radius: var(--radius-sm);
     }
 
@@ -174,11 +206,11 @@
       align-items: center;
       font-size: 11.5px;
       font-weight: 500;
-      color: var(--slate-300);
-      background: rgba(255, 255, 255, 0.06);
+      color: #f3ece3;
+      background: rgba(255, 255, 255, 0.08);
       padding: 4px 10px;
       border-radius: var(--radius-sm);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       letter-spacing: 0.2px;
     }
 
@@ -189,12 +221,13 @@
       padding: 4px;
       border-radius: var(--radius);
       border: 1px solid var(--slate-800);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
     }
 
     .nav-tab-btn {
       background: transparent;
       border: none;
-      color: var(--slate-300);
+      color: #e2d6c6;
       font-size: 12.5px;
       font-weight: 600;
       padding: 6px 14px;
@@ -209,13 +242,13 @@
 
     .nav-tab-btn:hover {
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .nav-tab-btn.active {
       background: var(--primary);
       color: #ffffff;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
     }
 
     .nav-tab-btn svg { width: 14px; height: 14px; }
@@ -254,15 +287,17 @@
     }
 
     .search-input:focus {
-      border-color: #60a5fa;
+      border-color: #fde047;
       background: var(--slate-950);
       width: 240px;
-      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+      box-shadow: 0 0 0 2px rgba(253, 224, 71, 0.25);
     }
 
-    .search-input::placeholder { color: var(--slate-500); }
+    .search-input::placeholder { color: var(--slate-400); }
 
-    /* Buttons: Standard enterprise rectangular styles */
+    /* ============================================================
+       BUTTONS WITH TACTILE DEPTH EFFECTS
+       ============================================================ */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -270,80 +305,158 @@
       gap: 6px;
       font-size: 12.5px;
       font-weight: 600;
-      padding: 7px 14px;
+      padding: 7px 15px;
       border-radius: var(--radius);
       cursor: pointer;
       border: 1px solid transparent;
       text-decoration: none;
-      line-height: 1.2;
-      transition: all 0.12s ease;
+      line-height: 1.25;
+      transition: all 0.14s cubic-bezier(0.16, 1, 0.3, 1);
       user-select: none;
+      position: relative;
     }
 
     .btn:active {
-      transform: translateY(1px);
+      transform: translateY(1px) !important;
     }
 
+    /* Primary button with rich tactile depth */
     .btn-primary {
-      background: var(--primary);
+      background: linear-gradient(180deg, #8c532b 0%, #764420 100%);
       color: #ffffff;
-      border-color: var(--primary);
-      box-shadow: var(--shadow-xs);
+      border-color: #643818;
+      box-shadow: 0 2px 4px rgba(44, 36, 28, 0.18),
+                  0 1px 0 rgba(255, 255, 255, 0.24) inset,
+                  0 -1px 0 rgba(0, 0, 0, 0.18) inset;
     }
 
     .btn-primary:hover {
-      background: var(--primary-hover);
-      border-color: var(--primary-hover);
+      background: linear-gradient(180deg, #965a30 0%, #7e4a24 100%);
+      border-color: #583115;
+      box-shadow: 0 4px 8px rgba(44, 36, 28, 0.22),
+                  0 1px 0 rgba(255, 255, 255, 0.3) inset,
+                  0 -1px 0 rgba(0, 0, 0, 0.18) inset;
+      transform: translateY(-1px);
     }
 
+    .btn-primary:active {
+      background: #6e3e1b;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset;
+    }
+
+    /* Secondary button with crisp tactile depth */
     .btn-secondary {
-      background: #ffffff;
+      background: linear-gradient(180deg, #ffffff 0%, #fbf8f2 100%);
       border: 1px solid var(--slate-300);
-      color: var(--slate-800);
-      box-shadow: var(--shadow-xs);
+      color: var(--slate-900);
+      box-shadow: 0 2px 3px rgba(44, 36, 28, 0.06),
+                  0 1px 0 #ffffff inset,
+                  0 -1px 0 rgba(44, 36, 28, 0.05) inset;
     }
 
     .btn-secondary:hover {
-      background: var(--slate-50);
+      background: #f7f2e8;
       border-color: var(--slate-400);
-      color: var(--slate-900);
+      color: var(--slate-950);
+      box-shadow: 0 3px 6px rgba(44, 36, 28, 0.09),
+                  0 1px 0 #ffffff inset;
+      transform: translateY(-1px);
     }
 
+    .btn-secondary:active {
+      background: #ede4d4;
+      box-shadow: 0 1px 2px rgba(44, 36, 28, 0.15) inset;
+    }
+
+    /* Subtle dark button in topbar */
     .btn-dark-subtle {
-      background: var(--slate-800);
-      border: 1px solid var(--slate-700);
-      color: var(--slate-200);
+      background: linear-gradient(180deg, #44372c 0%, #352b22 100%);
+      border: 1px solid #544436;
+      color: #f7f0e4;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25),
+                  0 1px 0 rgba(255, 255, 255, 0.12) inset;
     }
 
     .btn-dark-subtle:hover {
-      background: var(--slate-700);
+      background: linear-gradient(180deg, #4e4034 0%, #3e3228 100%);
       color: #ffffff;
+      border-color: #6a5746;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.32),
+                  0 1px 0 rgba(255, 255, 255, 0.18) inset;
     }
 
+    .btn-dark-subtle:active {
+      background: #2a221b;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) inset;
+    }
+
+    /* Danger button with depth */
     .btn-danger {
-      background: #ffffff;
+      background: linear-gradient(180deg, #ffffff 0%, #fff5f5 100%);
       border: 1px solid #fca5a5;
       color: #991b1b;
+      box-shadow: 0 2px 3px rgba(185, 28, 28, 0.08),
+                  0 1px 0 #ffffff inset;
     }
 
     .btn-danger:hover {
-      background: #fef2f2;
+      background: #fee2e2;
       border-color: #ef4444;
+      box-shadow: 0 3px 6px rgba(185, 28, 28, 0.14);
+      transform: translateY(-1px);
     }
 
+    .btn-danger:active {
+      background: #fecaca;
+      box-shadow: 0 1px 2px rgba(185, 28, 28, 0.2) inset;
+    }
+
+    /* Success button with depth */
     .btn-success {
-      background: #166534;
+      background: linear-gradient(180deg, #1e7e34 0%, #156526 100%);
       color: #ffffff;
-      border-color: #166534;
-      box-shadow: var(--shadow-xs);
+      border-color: #11501e;
+      box-shadow: 0 2px 4px rgba(21, 101, 38, 0.22),
+                  0 1px 0 rgba(255, 255, 255, 0.22) inset,
+                  0 -1px 0 rgba(0, 0, 0, 0.18) inset;
     }
 
     .btn-success:hover {
-      background: #14532d;
+      background: linear-gradient(180deg, #248b3b 0%, #17702b 100%);
+      box-shadow: 0 3px 6px rgba(21, 101, 38, 0.28),
+                  0 1px 0 rgba(255, 255, 255, 0.28) inset;
+      transform: translateY(-1px);
+    }
+
+    .btn-success:active {
+      background: #0f4418;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) inset;
+    }
+
+    /* Critical Emergency button */
+    .btn-emergency {
+      background: linear-gradient(180deg, #dc2626 0%, #b91c1c 100%);
+      color: #ffffff;
+      border-color: #991b1b;
+      box-shadow: 0 2px 4px rgba(185, 28, 28, 0.25),
+                  0 1px 0 rgba(255, 255, 255, 0.25) inset,
+                  0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+    }
+
+    .btn-emergency:hover {
+      background: linear-gradient(180deg, #ef4444 0%, #c81e1e 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(185, 28, 28, 0.32);
+    }
+
+    .btn-emergency:active {
+      background: #991b1b;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
     }
 
     .btn-sm {
-      padding: 4px 10px;
+      padding: 4px 11px;
       font-size: 11.5px;
     }
 
@@ -751,6 +864,102 @@
       border: 1px solid var(--status-rej-border);
     }
     .badge.rejected .badge-dot { background: var(--status-rej-dot); }
+
+    .badge.reported {
+      background: var(--p1-crit-bg);
+      color: var(--p1-crit-text);
+      border: 1px solid var(--p1-crit-border);
+    }
+    .badge.reported .badge-dot { background: var(--p1-crit-dot); }
+
+    .badge.investigating {
+      background: var(--yellow-100);
+      color: var(--yellow-800);
+      border: 1px solid var(--yellow-300);
+    }
+    .badge.investigating .badge-dot { background: var(--yellow-700); }
+
+    .badge.dismissed {
+      background: var(--slate-100);
+      color: var(--slate-600);
+      border: 1px solid var(--slate-300);
+    }
+    .badge.dismissed .badge-dot { background: var(--slate-500); }
+
+    /* Incident Priority Badges with Depth */
+    .priority-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      box-shadow: 0 1px 2px rgba(44, 36, 28, 0.05);
+    }
+
+    .priority-pill.critical {
+      background: var(--p1-crit-bg);
+      color: var(--p1-crit-text);
+      border: 1px solid var(--p1-crit-border);
+    }
+
+    .priority-pill.high {
+      background: var(--p2-high-bg);
+      color: var(--p2-high-text);
+      border: 1px solid var(--p2-high-border);
+    }
+
+    .priority-pill.medium {
+      background: var(--p3-med-bg);
+      color: var(--p3-med-text);
+      border: 1px solid var(--p3-med-border);
+    }
+
+    .priority-pill.low {
+      background: var(--p4-low-bg);
+      color: var(--p4-low-text);
+      border: 1px solid var(--p4-low-border);
+    }
+
+    .protocol-card {
+      background: linear-gradient(180deg, #fffdf8 0%, #fefcf3 100%);
+      border: 1px solid var(--yellow-300);
+      border-left: 4px solid var(--yellow-700);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-top: 14px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .protocol-header {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .protocol-body {
+      font-size: 12.5px;
+      color: var(--slate-700);
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+
+    .priority-rank-chip {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      background: #ffffff;
+      border: 1px solid var(--slate-300);
+      color: var(--slate-800);
+      font-family: var(--font-mono);
+    }
 
     /* Expanded Detail Panel & Lifecycle Stepper */
     .detail-panel {
@@ -1254,7 +1463,13 @@
       deleteRequest: id => req(`/requests/${id}`, { method: 'DELETE' }),
       clearRequests: status => req(`/requests${status ? `?status=${status}` : ''}`, { method: 'DELETE' }),
       getContact: () => req('/contact'),
-      updateContact: payload => req('/contact', { method: 'POST', body: JSON.stringify(payload) })
+      updateContact: payload => req('/contact', { method: 'POST', body: JSON.stringify(payload) }),
+      getIncidents: (who, role, priority, status) => req('/incidents' + (role === 'admin' ? `?role=admin${priority ? `&priority=${priority}` : ''}${status ? `&status=${status}` : ''}` : `?who=${encodeURIComponent(who || '')}${priority ? `&priority=${priority}` : ''}${status ? `&status=${status}` : ''}`)),
+      createIncident: payload => req('/incidents', { method: 'POST', body: JSON.stringify(payload) }),
+      updateIncidentStatus: (id, status, note, by) => req(`/incidents/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status, note, by }) }),
+      addIncidentNote: (id, by, t) => req(`/incidents/${id}/notes`, { method: 'POST', body: JSON.stringify({ by, t }) }),
+      deleteIncident: id => req(`/incidents/${id}`, { method: 'DELETE' }),
+      clearIncidents: status => req(`/incidents${status ? `?status=${status}` : ''}`, { method: 'DELETE' })
     };
 
     // Category specifications (strictly rectangular enterprise inputs, no emojis, clean placeholders)
@@ -1307,6 +1522,72 @@
       rejected: 'Rejected'
     };
 
+    // Incident Priority Protocol Hierarchy (Health & Safety P1 > Water P2 > Infrastructure P3 > Facilities P4)
+    const INCIDENT_CATS = {
+      health: {
+        k: 'health',
+        l: 'Health & Medical Emergency',
+        priority: 'critical',
+        rank: 1,
+        badge: 'P1 - Critical',
+        desc: 'Acute medical distress, physical trauma, asthma attack, or urgent first-aid need.',
+        protocol: 'EMERGENCY PROTOCOL: Campus Medical Officer & Emergency First-Aid dispatched immediately.'
+      },
+      safety: {
+        k: 'safety',
+        l: 'Life Safety & Hazard Alert',
+        priority: 'critical',
+        rank: 1,
+        badge: 'P1 - Critical',
+        desc: 'Fire threat, gas leak, active electrical shock hazard, or physical safety crisis.',
+        protocol: 'LIFE SAFETY PROTOCOL: Campus Security & Fire response dispatched with top priority.'
+      },
+      water: {
+        k: 'water',
+        l: 'Water & Sanitation Crisis',
+        priority: 'high',
+        rank: 2,
+        badge: 'P2 - High',
+        desc: 'Total water supply cut, pipe rupture, washroom flooding, or sewage overflow.',
+        protocol: 'UTILITY PROTOCOL: Plumbing Emergency Squad dispatched to isolate line.'
+      },
+      power: {
+        k: 'power',
+        l: 'Power & Electrical Outage',
+        priority: 'high',
+        rank: 2,
+        badge: 'P2 - High',
+        desc: 'Hostel wing blackout, transformer trip, or essential power failure.',
+        protocol: 'POWER PROTOCOL: Campus Electrical Maintenance dispatched to reset sub-panel.'
+      },
+      infrastructure: {
+        k: 'infrastructure',
+        l: 'Infrastructure & Structural Damage',
+        priority: 'medium',
+        rank: 3,
+        badge: 'P3 - Medium',
+        desc: 'Broken door locks, shattered window glass, ceiling leak, or stairwell hazard.',
+        protocol: 'MAINTENANCE PROTOCOL: Civil & Carpentry team queued for inspection.'
+      },
+      facilities: {
+        k: 'facilities',
+        l: 'Campus Facilities & Amenities',
+        priority: 'low',
+        rank: 4,
+        badge: 'P4 - Low',
+        desc: 'Ceiling fan defect, elevator glitch, Wi-Fi router issue, or desk repairs.',
+        protocol: 'SERVICE PROTOCOL: General Facilities work order generated.'
+      }
+    };
+
+    const INC_STATUS_LABEL = {
+      reported: 'Reported / Logged',
+      investigating: 'Under Triage',
+      in_progress: 'Action In Progress',
+      resolved: 'Resolved',
+      dismissed: 'Closed / Dismissed'
+    };
+
     const EX_CATS = ['datesheet', 'syllabus', 'portions', 'pyq'];
     const EX_LABEL = {
       datesheet: 'Datesheets',
@@ -1323,6 +1604,7 @@
       requests: [],
       reminders: [],
       exam: [],
+      incidents: [],
       contact: null
     };
 
@@ -1339,6 +1621,9 @@
       open: null,
       newType: null,
       reqFilter: 'all',
+      incidentFilter: 'all',
+      newIncident: false,
+      openIncident: null,
       activeModal: null,
       loading: false
     };
@@ -1375,17 +1660,19 @@
       }
 
       try {
-        const [notices, requests, reminders, exam, contact] = await Promise.all([
+        const [notices, requests, reminders, exam, incidents, contact] = await Promise.all([
           api.getNotices(),
           api.getRequests(s.user.name, s.loggedRole),
           s.loggedRole === 'student' ? api.getReminders(s.user.name) : Promise.resolve([]),
           api.getExam(s.subExam),
+          api.getIncidents(s.user.name, s.loggedRole),
           api.getContact()
         ]);
         db.notices = notices;
         db.requests = requests;
         db.reminders = reminders;
         db.exam = exam;
+        db.incidents = incidents;
         db.contact = contact;
       } catch (err) {
         console.error('Failed to synchronize data with backend server:', err);
@@ -1413,6 +1700,7 @@
       shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>`,
       notice: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
       request: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>`,
+      alert: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
       plus: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
       calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
       book: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
@@ -1421,7 +1709,11 @@
       check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`,
       clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
       clip: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>`,
-      trash: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`
+      trash: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`,
+      hospital: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v12m-6-6h12"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>`,
+      droplet: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
+      zap: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+      marker: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`
     };
 
     function fieldHTML(f) {
@@ -1441,7 +1733,11 @@
 
       if (d.a === 'role') { s.authRole = d.v; s.err = ''; return render(); }
       if (d.a === 'authmode') { s.authMode = d.v; s.err = ''; return render(); }
-      if (d.a === 'tab') { s.tab = d.v; s.open = null; s.newType = null; return render(); }
+      if (d.a === 'tab') { s.tab = d.v; s.open = null; s.newType = null; s.newIncident = false; return render(); }
+      if (d.a === 'toggleNewIncident') { s.newIncident = !s.newIncident; return render(); }
+      if (d.a === 'cancelNewIncident') { s.newIncident = false; return render(); }
+      if (d.a === 'openIncident') { s.openIncident = (s.openIncident === d.id ? null : d.id); return render(); }
+      if (d.a === 'filterIncident') { s.incidentFilter = d.v; return render(); }
       if (d.a === 'subExam') {
         s.subExam = d.v;
         try {
@@ -1553,6 +1849,47 @@
           render();
         } catch (err) {
           alert('Could not clear requests: ' + err.message);
+        }
+        return;
+      }
+
+      // Incident actions
+      if (d.a === 'incStatus') {
+        try {
+          const noteText = d.note || (d.v === 'resolved' ? 'Incident resolved & verified by desk' : '');
+          const updated = await api.updateIncidentStatus(d.id, d.v, noteText, s.user.name);
+          const idx = db.incidents.findIndex(i => i.id === d.id);
+          if (idx !== -1) db.incidents[idx] = updated;
+          showToast('Incident updated to: ' + (INC_STATUS_LABEL[d.v] || d.v));
+          render();
+        } catch (err) {
+          alert('Could not update incident status: ' + err.message);
+        }
+        return;
+      }
+
+      if (d.a === 'delIncident') {
+        if (!confirm('Are you sure you want to delete this incident log?')) return;
+        try {
+          await api.deleteIncident(d.id);
+          db.incidents = db.incidents.filter(i => i.id !== d.id);
+          showToast('Incident record cleared');
+          render();
+        } catch (err) {
+          alert('Could not clear incident: ' + err.message);
+        }
+        return;
+      }
+
+      if (d.a === 'clearCompletedIncidents') {
+        if (!confirm('Clear all resolved incident records?')) return;
+        try {
+          await api.clearIncidents('resolved');
+          db.incidents = db.incidents.filter(i => i.status !== 'resolved');
+          showToast('Resolved incident records cleared');
+          render();
+        } catch (err) {
+          alert('Could not clear incidents: ' + err.message);
         }
         return;
       }
@@ -1748,6 +2085,63 @@
         }
         return;
       }
+
+      if (f.id === 'incidentForm') {
+        const fileInput = document.getElementById('incMediaFileInput');
+        const linkInput = document.getElementById('incMediaLinkInput');
+        let mediaData = linkInput ? linkInput.value.trim() : '';
+        let mediaName = mediaData ? (mediaData.split('/').pop() || 'Incident Photo') : '';
+
+        const proceedIncSubmit = async (finalMedia, finalName) => {
+          try {
+            const newInc = await api.createIncident({
+              title: f.title.value.trim(),
+              cat: f.cat.value,
+              location: f.location.value.trim(),
+              desc: f.desc.value.trim(),
+              who: s.user.name,
+              branch: s.user.branch || 'General',
+              media: finalMedia || '',
+              media_name: finalName || ''
+            });
+            db.incidents.unshift(newInc);
+            s.newIncident = false;
+            f.reset();
+            showToast('Incident registered with priority: ' + newInc.priority_label);
+            render();
+          } catch (err) {
+            alert('Failed to register incident: ' + err.message);
+          }
+        };
+
+        if (fileInput && fileInput.files && fileInput.files[0]) {
+          const file = fileInput.files[0];
+          const reader = new FileReader();
+          reader.onload = async function(ev) {
+            await proceedIncSubmit(ev.target.result, file.name);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          await proceedIncSubmit(mediaData, mediaName);
+        }
+        return;
+      }
+
+      if (f.id === 'incNoteForm') {
+        const incId = f.dataset.incid;
+        const noteText = f.note.value.trim();
+        try {
+          const updated = await api.addIncidentNote(incId, s.user.name, noteText);
+          const idx = db.incidents.findIndex(i => i.id === incId);
+          if (idx !== -1) db.incidents[idx] = updated;
+          f.reset();
+          showToast('Dispatch remark recorded');
+          render();
+        } catch (err) {
+          alert('Failed to append remark: ' + err.message);
+        }
+        return;
+      }
     }
 
     function authScreen() {
@@ -1823,16 +2217,21 @@
     }
 
     function topbar() {
+      const myIncs = s.loggedRole === 'student' ? db.incidents.filter(i => i.who === s.user?.name) : db.incidents;
+      const unresIncs = db.incidents.filter(i => i.status !== 'resolved');
+
       const tabsSt = [
         ['notices', 'Notices', Icons.notice],
         ['new', 'New Request', Icons.plus],
         ['my', 'My Applications', Icons.request],
+        ['incidents', 'Incidents (' + myIncs.length + ')', Icons.alert],
         ['reminders', 'Academic Reminders', Icons.calendar],
         ['exam', 'Exam Cell', Icons.book]
       ];
       const tabsAd = [
         ['notices', 'Notices', Icons.notice],
         ['requests', 'REQUESTS', Icons.request],
+        ['incidents', 'Incident Desk (' + unresIncs.length + ')', Icons.alert],
         ['exam', 'Exam Cell', Icons.book]
       ];
       const tabs = s.loggedRole === 'student' ? tabsSt : tabsAd;
@@ -1897,9 +2296,9 @@
             <span>AY 2026 - 2027 | Autumn Term</span>
           </div>
           ${isSt ? `
-            <button class="btn btn-primary btn-sm" data-a="tab" data-v="new">New Clearance Request</button>
+            <button class="btn btn-primary btn-sm" data-a="tab" data-v="incidents">Report Incident</button>
           ` : `
-            <button class="btn btn-primary btn-sm" data-a="tab" data-v="requests">REQUESTS (${db.requests.filter(r => r.status === 'pending').length})</button>
+            <button class="btn btn-primary btn-sm" data-a="tab" data-v="incidents">Incident Desk (${db.incidents.filter(i => i.status !== 'resolved').length})</button>
           `}
         </div>
       </div>`;
@@ -1910,14 +2309,18 @@
       const myReqs = isSt ? db.requests.filter(r => r.who === s.user.name) : db.requests;
       const pendingCount = myReqs.filter(r => r.status === 'pending').length;
       const noticeCount = db.notices.length;
-      const reminderCount = isSt ? db.reminders.filter(r => r.who === s.user.name).length : db.requests.filter(r => r.status === 'resolved').length;
-      const examCount = db.exam.length;
+      
+      const myIncs = isSt ? db.incidents.filter(i => i.who === s.user.name) : db.incidents;
+      const recordedCount = myIncs.length;
+      const resolvedCount = myIncs.filter(i => i.status === 'resolved').length;
+      const critCount = db.incidents.filter(i => (i.priority === 'critical' || i.priority === 'high') && i.status !== 'resolved').length;
+      const adminResolvedCount = db.incidents.filter(i => i.status === 'resolved').length;
 
       return `
       <div class="stats-bar">
         <div class="stat-box ${s.tab === (isSt ? 'my' : 'requests') ? 'active-tab-stat' : ''}" data-a="tab" data-v="${isSt ? 'my' : 'requests'}">
           <div class="stat-header">
-            <span class="stat-label">Pending Review</span>
+            <span class="stat-label">${isSt ? 'Clearance Requests' : 'Pending Requests'}</span>
             <span class="stat-indicator-dot amber"></span>
           </div>
           <div class="stat-number">${pendingCount}</div>
@@ -1939,26 +2342,26 @@
           </div>
         </div>
 
-        <div class="stat-box ${s.tab === (isSt ? 'reminders' : 'requests') ? 'active-tab-stat' : ''}" data-a="tab" data-v="${isSt ? 'reminders' : 'requests'}">
+        <div class="stat-box ${s.tab === 'incidents' ? 'active-tab-stat' : ''}" data-a="tab" data-v="incidents">
           <div class="stat-header">
-            <span class="stat-label">${isSt ? 'Course Deadlines' : 'Resolved Records'}</span>
-            <span class="stat-indicator-dot green"></span>
+            <span class="stat-label">${isSt ? 'Incidents Recorded' : 'Active Incidents'}</span>
+            <span class="stat-indicator-dot ${critCount > 0 ? 'amber' : 'blue'}"></span>
           </div>
-          <div class="stat-number">${reminderCount}</div>
+          <div class="stat-number">${isSt ? recordedCount : (critCount > 0 ? critCount : db.incidents.length)}</div>
           <div class="stat-footer-text">
-            <span>${isSt ? 'Scheduled milestones' : 'Approved tickets'}</span>
+            <span>${isSt ? 'Health, water & hazard logs' : (critCount > 0 ? 'Critical P1 & P2 awaiting action' : 'Campus incident logs')}</span>
             <span style="font-weight:600;color:var(--primary);">View &rarr;</span>
           </div>
         </div>
 
-        <div class="stat-box ${s.tab === 'exam' ? 'active-tab-stat' : ''}" data-a="tab" data-v="exam">
+        <div class="stat-box ${s.tab === 'incidents' ? 'active-tab-stat' : ''}" data-a="tab" data-v="incidents">
           <div class="stat-header">
-            <span class="stat-label">Exam Publications</span>
-            <span class="stat-indicator-dot slate"></span>
+            <span class="stat-label">${isSt ? 'Incidents Resolved' : 'Incidents Resolved'}</span>
+            <span class="stat-indicator-dot green"></span>
           </div>
-          <div class="stat-number">${examCount}</div>
+          <div class="stat-number">${isSt ? resolvedCount : adminResolvedCount}</div>
           <div class="stat-footer-text">
-            <span>Timetables & syllabus</span>
+            <span>${isSt ? 'Verified safety closures' : 'Total verified closures'}</span>
             <span style="font-weight:600;color:var(--primary);">View &rarr;</span>
           </div>
         </div>
@@ -2372,6 +2775,391 @@
       </div>`;
     }
 
+    function incidentsView() {
+      const isSt = s.loggedRole === 'student';
+      let list = db.incidents.filter(i => i.who === s.user?.name);
+      
+      const totalCount = list.length;
+      const activeCount = list.filter(i => i.status !== 'resolved' && i.status !== 'dismissed').length;
+      const resolvedCount = list.filter(i => i.status === 'resolved').length;
+      const critCount = list.filter(i => (i.priority === 'critical' || i.cat === 'health' || i.cat === 'safety') && i.status !== 'resolved').length;
+      const highCount = list.filter(i => (i.priority === 'high' || i.cat === 'water' || i.cat === 'power') && i.status !== 'resolved').length;
+
+      if (s.incidentFilter === 'active') list = list.filter(i => i.status !== 'resolved' && i.status !== 'dismissed');
+      else if (s.incidentFilter === 'critical') list = list.filter(i => i.priority === 'critical' || i.cat === 'health' || i.cat === 'safety');
+      else if (s.incidentFilter === 'high') list = list.filter(i => i.priority === 'high' || i.cat === 'water' || i.cat === 'power');
+      else if (s.incidentFilter === 'resolved') list = list.filter(i => i.status === 'resolved');
+
+      list = list.filter(i => match((i.title || '') + ' ' + (i.desc || '') + ' ' + (i.location || '') + ' ' + (i.cat || '')));
+      list.sort((a, b) => (a.priority_rank || 4) - (b.priority_rank || 4));
+
+      return `
+      <div>
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">${Icons.alert} Campus Incident & Emergency Register</h2>
+            <p class="page-subtitle">Report urgent health situations, water & sanitation disruptions, power cuts, and facilities hazards. Automated priority protocol ensures health emergencies supersede standard requests.</p>
+          </div>
+          <div>
+            ${s.newIncident ? `
+              <button class="btn btn-secondary btn-sm" data-a="cancelNewIncident">Close Registration Form</button>
+            ` : `
+              <button class="btn btn-emergency btn-sm" data-a="toggleNewIncident">${Icons.plus} Register New Incident</button>
+            `}
+          </div>
+        </div>
+
+        <!-- Priority Protocol Hierarchy Legend -->
+        <div class="protocol-card" style="margin-top:14px;">
+          <div class="protocol-header">
+            ${Icons.shield}
+            <span>Institutional Response Hierarchy & Severity Classification</span>
+          </div>
+          <div class="protocol-body">
+            Incidents are categorized by strict triage order:
+            <strong>P1 Critical (Health Emergencies & Physical Safety)</strong> trigger immediate medical officer dispatch;
+            <strong>P2 High (Water Disruptions & Power Blackouts)</strong> trigger rapid utility squad response;
+            <strong>P3 Medium (Structural Hazards)</strong> and <strong>P4 Low (Campus Facilities)</strong> follow standard maintenance queues.
+          </div>
+        </div>
+
+        ${s.newIncident ? `
+          <div class="card" style="margin-top:16px;border-left:4px solid var(--primary);box-shadow:var(--shadow-md);">
+            <div class="card-title">
+              <span>Log Campus Incident / Urgent Report</span>
+              <span class="role-tag" style="background:var(--yellow-100);color:var(--yellow-800);border-color:var(--yellow-300);">Automated Priority Mapping</span>
+            </div>
+            <form id="incidentForm">
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label>Incident Headline / Brief Summary</label>
+                  <input name="title" required placeholder="e.g. Acute breathing distress in Room 204 / Main water pipeline burst in Hostel B ground floor" />
+                </div>
+                <div class="form-group">
+                  <label>Incident Category & Priority Classification</label>
+                  <select name="cat" required>
+                    <option value="" disabled selected>Select Incident Type</option>
+                    <option value="health">P1 Critical - Health & Medical Emergency (Immediate First-Aid / Ambulance)</option>
+                    <option value="safety">P1 Critical - Life Safety & Hazard Alert (Fire / Gas / Structural Risk)</option>
+                    <option value="water">P2 High - Water & Sanitation Crisis (Pipe Rupture / Supply Cut / Flooding)</option>
+                    <option value="power">P2 High - Power & Electrical Outage (Hostel Blackout / Panel Failure)</option>
+                    <option value="infrastructure">P3 Medium - Infrastructure & Structural Damage (Doors / Windows / Stairs)</option>
+                    <option value="facilities">P4 Low - Campus Facilities & Amenities (Fans / Wi-Fi / Furniture)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Exact Campus Location / Hostel & Room</label>
+                  <input name="location" required placeholder="e.g. Hostel Block B, 2nd Floor Washroom / Lab 4B" />
+                </div>
+                <div class="form-group full">
+                  <label>Incident Details & Current Condition</label>
+                  <textarea name="desc" required placeholder="Provide descriptive details: who is impacted, current risk level, visible damage, or immediate requirements..."></textarea>
+                </div>
+                <div class="form-group full">
+                  <label>Photo / Document Evidence (Optional)</label>
+                  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                    <input type="file" id="incMediaFileInput" accept="image/*,.pdf" style="flex:1;" />
+                    <input name="media_link" id="incMediaLinkInput" placeholder="Or enter image / document URL link" style="flex:1;" />
+                  </div>
+                  <span style="font-size:11px;color:var(--slate-500);margin-top:2px;">Upload a photo of the leak, damage, or incident scene to expedite field team triage.</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;border-top:1px solid var(--line);padding-top:12px;">
+                <button class="btn btn-secondary btn-sm" type="button" data-a="cancelNewIncident">Cancel</button>
+                <button class="btn btn-emergency btn-sm" type="submit">Submit Incident Report</button>
+              </div>
+            </form>
+          </div>
+        ` : ''}
+
+        <!-- Filter Controls -->
+        <div class="filter-group" style="margin-top:18px;">
+          <button class="filter-btn ${s.incidentFilter === 'all' ? 'active' : ''}" data-a="filterIncident" data-v="all">All My Logs (${totalCount})</button>
+          <button class="filter-btn ${s.incidentFilter === 'active' ? 'active' : ''}" data-a="filterIncident" data-v="active">Open / Active (${activeCount})</button>
+          <button class="filter-btn ${s.incidentFilter === 'critical' ? 'active' : ''}" data-a="filterIncident" data-v="critical">P1 Critical (${critCount})</button>
+          <button class="filter-btn ${s.incidentFilter === 'high' ? 'active' : ''}" data-a="filterIncident" data-v="high">P2 High (${highCount})</button>
+          <button class="filter-btn ${s.incidentFilter === 'resolved' ? 'active' : ''}" data-a="filterIncident" data-v="resolved">Resolved Closures (${resolvedCount})</button>
+        </div>
+
+        <!-- Incident Cards -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          ${list.map(inc => {
+            const catDef = INCIDENT_CATS[inc.cat] || { l: inc.cat, priority: inc.priority || 'medium', badge: inc.priority_label || 'P3 - Medium', protocol: '' };
+            const isCrit = inc.priority === 'critical' || inc.priority_rank === 1;
+            const isHigh = inc.priority === 'high' || inc.priority_rank === 2;
+            const isRes = inc.status === 'resolved';
+            const iconSvg = isCrit ? Icons.hospital : (inc.cat === 'water' ? Icons.droplet : (inc.cat === 'power' ? Icons.zap : Icons.alert));
+
+            return `
+            <div class="card" style="border-left: 4px solid ${isCrit ? 'var(--red-600)' : (isHigh ? 'var(--amber-600)' : (isRes ? 'var(--green-600)' : 'var(--primary)'))};">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  <span class="priority-pill ${inc.priority || 'medium'}">${iconSvg} ${inc.priority_label || catDef.badge}</span>
+                  <span class="badge ${inc.status}"><span class="badge-dot"></span>${INC_STATUS_LABEL[inc.status] || inc.status}</span>
+                  <span class="id-badge">${inc.id}</span>
+                  <span class="meta-tag" style="font-weight:600;">${catDef.l}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span class="meta-tag">${inc.at || inc.created_at || ''}</span>
+                </div>
+              </div>
+
+              <div style="margin-top:10px;">
+                <h3 style="font-size:15px;font-weight:700;color:var(--slate-900);line-height:1.4;">${inc.title}</h3>
+                <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--slate-700);margin-top:4px;background:var(--slate-100);padding:2px 8px;border-radius:var(--radius-sm);">
+                  ${Icons.marker}
+                  <span>Location: ${inc.location}</span>
+                </div>
+              </div>
+
+              ${(isCrit || isHigh) && catDef.protocol ? `
+                <div style="margin-top:10px;padding:8px 12px;font-size:12px;background:var(--yellow-100);border:1px solid var(--yellow-300);border-radius:var(--radius);color:var(--yellow-900);">
+                  <strong>Dispatch Protocol:</strong> ${catDef.protocol}
+                </div>
+              ` : ''}
+
+              <p style="font-size:13px;color:var(--slate-700);line-height:1.6;margin-top:10px;white-space:pre-line;">${inc.desc}</p>
+
+              ${inc.media ? `
+                <div style="margin-top:12px;padding:8px 12px;background:var(--slate-50);border:1px solid var(--line);border-radius:var(--radius);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+                  <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--slate-800);">
+                    ${Icons.clip}
+                    <span>Attachment: ${inc.media_name || 'Incident Evidence'}</span>
+                  </div>
+                  <a href="${inc.media}" download="${inc.media_name || 'incident-media'}" target="_blank" class="btn btn-secondary btn-sm" style="text-decoration:none;">View / Download</a>
+                </div>
+                ${inc.media.startsWith('data:image/') || /\.(png|jpe?g|webp|gif)$/i.test(inc.media) ? `
+                  <div style="margin-top:8px;">
+                    <img src="${inc.media}" alt="${inc.title}" style="max-height:180px;border-radius:var(--radius);border:1px solid var(--line);display:block;" />
+                  </div>
+                ` : ''}
+              ` : ''}
+
+              <!-- Administrative Dispatch Remarks Log -->
+              <div style="margin-top:14px;padding:12px 14px;background:var(--slate-50);border:1px solid var(--line);border-radius:var(--radius);">
+                <div style="font-size:11.5px;font-weight:700;color:var(--slate-700);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
+                  <span>Administrative Dispatch & Action Log</span>
+                  <span style="font-size:11px;color:var(--slate-500);font-weight:500;">${inc.notes && inc.notes.length ? inc.notes.length + ' update(s)' : 'Pending dispatch review'}</span>
+                </div>
+                ${inc.notes && inc.notes.length ? `
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    ${inc.notes.map(n => `
+                      <div style="font-size:12px;color:var(--slate-800);padding:5px 0;border-bottom:1px dashed var(--line);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+                        <span><strong>${n.by}:</strong> ${n.t || n.txt || ''}</span>
+                        <span style="font-size:10.5px;color:var(--slate-500);font-family:var(--font-mono);">${n.at}</span>
+                      </div>
+                    `).join('')}
+                  </div>
+                ` : `
+                  <div style="font-size:12px;color:var(--slate-500);font-style:italic;">No official remarks added yet. Field personnel review will be logged here.</div>
+                `}
+              </div>
+            </div>`;
+          }).join('') || `
+            <div class="card" style="text-align:center;padding:40px;color:var(--slate-500);">
+              <div style="width:40px;height:40px;margin:0 auto 10px;color:var(--slate-400);">${Icons.check}</div>
+              <div style="font-size:14px;font-weight:600;color:var(--slate-700);">No incident records found</div>
+              <div style="font-size:12px;margin-top:4px;">You currently have no registered incidents under this filter.</div>
+            </div>
+          `}
+        </div>
+      </div>`;
+    }
+
+    function adminIncidentsView() {
+      let list = [...db.incidents];
+
+      const totalCount = list.length;
+      const critCount = list.filter(i => (i.priority === 'critical' || i.cat === 'health' || i.cat === 'safety') && i.status !== 'resolved').length;
+      const waterPowerCount = list.filter(i => (i.priority === 'high' || i.cat === 'water' || i.cat === 'power') && i.status !== 'resolved').length;
+      const inProgCount = list.filter(i => (i.status === 'investigating' || i.status === 'in_progress')).length;
+      const resolvedCount = list.filter(i => i.status === 'resolved').length;
+
+      if (s.incidentFilter === 'p1' || s.incidentFilter === 'critical') list = list.filter(i => i.priority === 'critical' || i.cat === 'health' || i.cat === 'safety');
+      else if (s.incidentFilter === 'p2' || s.incidentFilter === 'high') list = list.filter(i => i.priority === 'high' || i.cat === 'water' || i.cat === 'power');
+      else if (s.incidentFilter === 'p3' || s.incidentFilter === 'medium') list = list.filter(i => i.priority === 'medium' || i.cat === 'infrastructure');
+      else if (s.incidentFilter === 'p4' || s.incidentFilter === 'low') list = list.filter(i => i.priority === 'low' || i.cat === 'facilities');
+      else if (s.incidentFilter === 'active') list = list.filter(i => i.status !== 'resolved' && i.status !== 'dismissed');
+      else if (s.incidentFilter === 'resolved') list = list.filter(i => i.status === 'resolved');
+
+      list = list.filter(i => match((i.title || '') + ' ' + (i.desc || '') + ' ' + (i.location || '') + ' ' + (i.who || '') + ' ' + (i.cat || '')));
+      
+      // Strict priority hierarchy: Health (Rank 1) > Water/Power (Rank 2) > Infrastructure (Rank 3) > Facilities (Rank 4)
+      list.sort((a, b) => {
+        const rankDiff = (a.priority_rank || 4) - (b.priority_rank || 4);
+        if (rankDiff !== 0) return rankDiff;
+        if (a.status === 'resolved' && b.status !== 'resolved') return 1;
+        if (a.status !== 'resolved' && b.status === 'resolved') return -1;
+        return (b.id || '').localeCompare(a.id || '');
+      });
+
+      return `
+      <div>
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">${Icons.alert} Institutional Incident Resolving Dashboard</h2>
+            <p class="page-subtitle">Unified campus triage command. Automated priority ensures medical distress (P1) and water disruption (P2) take immediate field dispatch priority.</p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-secondary btn-sm" data-a="clearCompletedIncidents">Clear Resolved Incidents (${resolvedCount})</button>
+          </div>
+        </div>
+
+        <!-- Metric Triage Strip -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:12px;margin-top:14px;">
+          <div class="card" style="padding:14px 16px;border-left:3px solid var(--slate-900);">
+            <div style="font-size:11px;font-weight:700;color:var(--slate-600);text-transform:uppercase;">Total Logged</div>
+            <div style="font-size:22px;font-weight:700;color:var(--slate-900);margin-top:4px;font-family:var(--font-mono);">${totalCount}</div>
+            <div style="font-size:11px;color:var(--slate-500);margin-top:2px;">All campus incidents</div>
+          </div>
+          <div class="card" style="padding:14px 16px;border-left:3px solid var(--red-600);background:var(--red-50);">
+            <div style="font-size:11px;font-weight:700;color:var(--red-900);text-transform:uppercase;">P1 Critical (Health/Safety)</div>
+            <div style="font-size:22px;font-weight:700;color:var(--red-900);margin-top:4px;font-family:var(--font-mono);">${critCount}</div>
+            <div style="font-size:11px;color:var(--red-700);margin-top:2px;">Immediate priority triage</div>
+          </div>
+          <div class="card" style="padding:14px 16px;border-left:3px solid var(--amber-600);background:var(--amber-50);">
+            <div style="font-size:11px;font-weight:700;color:var(--amber-900);text-transform:uppercase;">P2 High (Water/Power)</div>
+            <div style="font-size:22px;font-weight:700;color:var(--amber-900);margin-top:4px;font-family:var(--font-mono);">${waterPowerCount}</div>
+            <div style="font-size:11px;color:var(--amber-800);margin-top:2px;">Utility emergency dispatch</div>
+          </div>
+          <div class="card" style="padding:14px 16px;border-left:3px solid var(--primary);background:var(--yellow-100);">
+            <div style="font-size:11px;font-weight:700;color:var(--slate-900);text-transform:uppercase;">In Action / Triage</div>
+            <div style="font-size:22px;font-weight:700;color:var(--primary);margin-top:4px;font-family:var(--font-mono);">${inProgCount}</div>
+            <div style="font-size:11px;color:var(--slate-600);margin-top:2px;">Field teams deployed</div>
+          </div>
+          <div class="card" style="padding:14px 16px;border-left:3px solid var(--green-600);background:var(--green-50);">
+            <div style="font-size:11px;font-weight:700;color:var(--green-900);text-transform:uppercase;">Verified Resolved</div>
+            <div style="font-size:22px;font-weight:700;color:var(--green-900);margin-top:4px;font-family:var(--font-mono);">${resolvedCount}</div>
+            <div style="font-size:11px;color:var(--green-700);margin-top:2px;">Closed safety records</div>
+          </div>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="filter-group" style="margin-top:16px;">
+          <button class="filter-btn ${s.incidentFilter === 'all' ? 'active' : ''}" data-a="filterIncident" data-v="all">All Incidents (${totalCount})</button>
+          <button class="filter-btn ${s.incidentFilter === 'critical' ? 'active' : ''}" data-a="filterIncident" data-v="critical">P1 Critical (${critCount})</button>
+          <button class="filter-btn ${s.incidentFilter === 'high' ? 'active' : ''}" data-a="filterIncident" data-v="high">P2 High (${waterPowerCount})</button>
+          <button class="filter-btn ${s.incidentFilter === 'active' ? 'active' : ''}" data-a="filterIncident" data-v="active">Unresolved (${totalCount - resolvedCount})</button>
+          <button class="filter-btn ${s.incidentFilter === 'resolved' ? 'active' : ''}" data-a="filterIncident" data-v="resolved">Resolved (${resolvedCount})</button>
+        </div>
+
+        <!-- Resolving Items List -->
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:14px;">
+          ${list.map(inc => {
+            const catDef = INCIDENT_CATS[inc.cat] || { l: inc.cat, priority: inc.priority || 'medium', badge: inc.priority_label || 'P3 - Medium', protocol: '' };
+            const isCrit = inc.priority === 'critical' || inc.priority_rank === 1;
+            const isHigh = inc.priority === 'high' || inc.priority_rank === 2;
+            const isRes = inc.status === 'resolved';
+            const iconSvg = isCrit ? Icons.hospital : (inc.cat === 'water' ? Icons.droplet : (inc.cat === 'power' ? Icons.zap : Icons.alert));
+
+            return `
+            <div class="card" style="border-left: 4px solid ${isCrit ? 'var(--red-600)' : (isHigh ? 'var(--amber-600)' : (isRes ? 'var(--green-600)' : 'var(--primary)'))};">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  <span class="priority-pill ${inc.priority || 'medium'}">${iconSvg} ${inc.priority_label || catDef.badge}</span>
+                  <span class="badge ${inc.status}"><span class="badge-dot"></span>${INC_STATUS_LABEL[inc.status] || inc.status}</span>
+                  <span class="id-badge">${inc.id}</span>
+                  <span class="meta-tag" style="font-weight:600;">${catDef.l}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span class="meta-tag">Reported by <strong>${inc.who}</strong> (${inc.branch || 'Student'})</span>
+                  <span class="id-badge">${inc.at || inc.created_at || ''}</span>
+                </div>
+              </div>
+
+              <div style="margin-top:12px;">
+                <h3 style="font-size:15px;font-weight:700;color:var(--slate-900);">${inc.title}</h3>
+                <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--slate-800);margin-top:4px;background:var(--slate-100);padding:3px 9px;border-radius:var(--radius-sm);">
+                  ${Icons.marker}
+                  <span>Campus Location: ${inc.location}</span>
+                </div>
+              </div>
+
+              ${(isCrit || isHigh) && catDef.protocol ? `
+                <div style="margin-top:10px;padding:8px 12px;font-size:12px;background:var(--yellow-100);border:1px solid var(--yellow-300);border-radius:var(--radius);color:var(--yellow-900);">
+                  <strong>Action Directive:</strong> ${catDef.protocol}
+                </div>
+              ` : ''}
+
+              <p style="font-size:13px;color:var(--slate-700);line-height:1.6;margin-top:10px;white-space:pre-line;">${inc.desc}</p>
+
+              ${inc.media ? `
+                <div style="margin-top:12px;padding:8px 12px;background:var(--slate-50);border:1px solid var(--line);border-radius:var(--radius);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+                  <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--slate-800);">
+                    ${Icons.clip}
+                    <span>Attached Evidence: ${inc.media_name || 'Incident Photo'}</span>
+                  </div>
+                  <a href="${inc.media}" download="${inc.media_name || 'incident-media'}" target="_blank" class="btn btn-secondary btn-sm" style="text-decoration:none;">View / Download</a>
+                </div>
+                ${inc.media.startsWith('data:image/') || /\.(png|jpe?g|webp|gif)$/i.test(inc.media) ? `
+                  <div style="margin-top:8px;">
+                    <img src="${inc.media}" alt="${inc.title}" style="max-height:180px;border-radius:var(--radius);border:1px solid var(--line);display:block;" />
+                  </div>
+                ` : ''}
+              ` : ''}
+
+              <!-- Resolving Workflow Action Panel -->
+              <div style="margin-top:16px;padding:12px 14px;background:var(--slate-50);border:1px solid var(--line);border-radius:var(--radius);">
+                <div style="font-size:11.5px;font-weight:700;color:var(--slate-700);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+                  <span>Incident Resolution Desk & Status Transition Controls</span>
+                  <button class="btn btn-danger btn-sm" data-a="delIncident" data-id="${inc.id}" title="Remove incident log">Delete Record</button>
+                </div>
+                
+                <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                  ${inc.status !== 'investigating' && !isRes ? `
+                    <button class="btn btn-secondary btn-sm" data-a="incStatus" data-id="${inc.id}" data-v="investigating">Move to Triage</button>
+                  ` : ''}
+
+                  ${inc.status !== 'in_progress' && !isRes ? `
+                    <button class="btn btn-primary btn-sm" data-a="incStatus" data-id="${inc.id}" data-v="in_progress">Dispatch Team / In Progress</button>
+                  ` : ''}
+
+                  ${!isRes ? `
+                    <button class="btn btn-success btn-sm" data-a="incStatus" data-id="${inc.id}" data-v="resolved">Mark Resolved & Closed</button>
+                  ` : `
+                    <span style="font-size:12px;font-weight:700;color:var(--status-res-text);display:flex;align-items:center;gap:4px;">
+                      ${Icons.check} Incident Resolved & Verified
+                    </span>
+                    <button class="btn btn-secondary btn-sm" data-a="incStatus" data-id="${inc.id}" data-v="in_progress">Reopen Investigation</button>
+                  `}
+
+                  ${inc.status !== 'dismissed' && !isRes ? `
+                    <button class="btn btn-secondary btn-sm" data-a="incStatus" data-id="${inc.id}" data-v="dismissed">Dismiss / False Alarm</button>
+                  ` : ''}
+                </div>
+
+                <!-- Dispatch Remark Form -->
+                <div style="margin-top:12px;border-top:1px dashed var(--line);padding-top:10px;">
+                  <form id="incNoteForm" data-incid="${inc.id}" style="display:flex;gap:8px;align-items:center;">
+                    <input name="note" required placeholder="Add dispatch remark (e.g. Dr. Verma arrived at clinic; Plumber replaced valve; ETA 15 mins)..." style="flex:1;font-size:12px;" />
+                    <button class="btn btn-primary btn-sm" type="submit">Log Remark</button>
+                  </form>
+                </div>
+
+                <!-- Previous Remarks List -->
+                ${inc.notes && inc.notes.length ? `
+                  <div style="margin-top:10px;display:flex;flex-direction:column;gap:5px;">
+                    ${inc.notes.map(n => `
+                      <div style="font-size:12px;color:var(--slate-800);padding:4px 0;border-bottom:1px dashed var(--slate-200);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+                        <span><strong>${n.by}:</strong> ${n.t || n.txt || ''}</span>
+                        <span style="font-size:10.5px;color:var(--slate-500);font-family:var(--font-mono);">${n.at}</span>
+                      </div>
+                    `).join('')}
+                  </div>
+                ` : ''}
+              </div>
+            </div>`;
+          }).join('') || `
+            <div class="card" style="text-align:center;padding:40px;color:var(--slate-500);">
+              <div style="width:40px;height:40px;margin:0 auto 10px;color:var(--slate-400);">${Icons.check}</div>
+              <div style="font-size:14px;font-weight:600;color:var(--slate-700);">No incidents in this view</div>
+              <div style="font-size:12px;margin-top:4px;">No active incident records match the selected filter.</div>
+            </div>
+          `}
+        </div>
+      </div>`;
+    }
+
     function modalView() {
       if (!s.activeModal) return '';
 
@@ -2517,6 +3305,7 @@
       if (s.tab === 'notices') content = noticesView();
       else if (s.tab === 'new') content = newRequestView();
       else if (s.tab === 'my' || s.tab === 'requests') content = requestsView();
+      else if (s.tab === 'incidents') content = (s.loggedRole === 'admin' ? adminIncidentsView() : incidentsView());
       else if (s.tab === 'reminders') content = remindersView();
       else if (s.tab === 'exam') content = examView();
 

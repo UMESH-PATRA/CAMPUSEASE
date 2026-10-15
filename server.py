@@ -9,9 +9,11 @@ import time
 
 PORT = int(os.environ.get("PORT", 3000))
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_FILE = os.path.join(BASE_DIR, "database.json")
+IS_VERCEL = bool(os.environ.get("VERCEL"))
+DB_FILE = "/tmp/database.json" if IS_VERCEL else os.path.join(BASE_DIR, "database.json")
 
 def read_db():
+    seed_file = os.path.join(BASE_DIR, "database.json")
     if not os.path.exists(DB_FILE):
         initial = {
             "students": [],
@@ -19,17 +21,36 @@ def read_db():
             "notices": [],
             "requests": [],
             "reminders": [],
-            "exam": []
+            "exam": [],
+            "incidents": [],
+            "contact": {
+                "email": "registrar@campus.edu",
+                "phone": "+1 (555) 019-2834",
+                "office": "Admin Block B, Room 102",
+                "hours": "Mon - Fri 09:00 - 17:00",
+                "emergency": "Security: ext 100"
+            }
         }
-        with open(DB_FILE, "w", encoding="utf-8") as f:
-            json.dump(initial, f, indent=2)
+        if os.path.exists(seed_file):
+            try:
+                with open(seed_file, "r", encoding="utf-8") as sf:
+                    initial = json.load(sf)
+            except Exception:
+                pass
+        try:
+            with open(DB_FILE, "w", encoding="utf-8") as f:
+                json.dump(initial, f, indent=2)
+        except Exception:
+            pass
         return initial
     try:
         with open(DB_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
+            d = json.load(f)
+            d.setdefault("incidents", [])
+            return d
     except Exception as e:
         print(f"Error reading database.json: {e}")
-        return {"students": [], "admins": [], "notices": [], "requests": [], "reminders": [], "exam": []}
+        return {"students": [], "admins": [], "notices": [], "requests": [], "reminders": [], "exam": [], "incidents": []}
 
 def write_db(data):
     try:
@@ -43,7 +64,11 @@ def generate_id(prefix):
     rand = random.randint(10, 99)
     return f"{prefix}-{millis}{rand}"
 
-class CampusEaseHandler(BaseHTTPRequestHandler):
+def sort_incidents(incidents):
+    # Sort strictly by priority_rank ascending (1=Critical, 2=High, 3=Medium, 4=Low), then newest first
+    return sorted(incidents, key=lambda x: (x.get("priority_rank", 99), -int(str(x.get("id", "")).split("-")[-1]) if str(x.get("id", "")).split("-")[-1].isdigit() else 0))
+
+class handler(BaseHTTPRequestHandler):
     def _send_cors_headers(self):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS")
@@ -116,6 +141,20 @@ class CampusEaseHandler(BaseHTTPRequestHandler):
                     "emergency": "Campus Security & Medical: ext 100 / +1 (555) 019-2899"
                 })
                 return self._send_json(200, contact)
+
+            if path == "/api/incidents":
+                who = qs.get("who", [""])[0]
+                role = qs.get("role", [""])[0]
+                priority = qs.get("priority", [""])[0]
+                status_f = qs.get("status", [""])[0]
+                incs = db.get("incidents", [])
+                if role != "admin" and who:
+                    incs = [i for i in incs if i.get("who", "").lower() == who.lower()]
+                if priority:
+                    incs = [i for i in incs if i.get("priority") == priority]
+                if status_f:
+                    incs = [i for i in incs if i.get("status") == status_f]
+                return self._send_json(200, sort_incidents(incs))
 
             return self._send_json(404, {"error": "API route not found"})
 
@@ -328,6 +367,71 @@ class CampusEaseHandler(BaseHTTPRequestHandler):
             write_db(db)
             return self._send_json(200, contact)
 
+        # Create Incident: /api/incidents
+        if path == "/api/incidents":
+            title = str(body.get("title", "")).strip()
+            cat = str(body.get("cat", "facilities")).strip().lower()
+            desc = str(body.get("desc", "")).strip()
+            location = str(body.get("location", "")).strip()
+            who = str(body.get("who", "")).strip()
+            branch = str(body.get("branch", "General")).strip()
+            media = str(body.get("media", "")).strip()
+            media_name = str(body.get("media_name", "")).strip()
+
+            if not title or not desc or not location or not who:
+                return self._send_json(400, {"error": "Title, description, location, and reporter name are mandatory."})
+
+            # Priority hierarchy: Medical and safety take highest precedence over utilities & facilities
+            p_map = {
+                "health": {"priority": "critical", "rank": 1, "label": "P1 - Critical", "cat_name": "Health & Medical Emergency"},
+                "safety": {"priority": "critical", "rank": 1, "label": "P1 - Critical", "cat_name": "Life Safety & Hazard"},
+                "water": {"priority": "high", "rank": 2, "label": "P2 - High", "cat_name": "Water & Sanitation Crisis"},
+                "power": {"priority": "high", "rank": 2, "label": "P2 - High", "cat_name": "Power & Electrical Outage"},
+                "infrastructure": {"priority": "medium", "rank": 3, "label": "P3 - Medium", "cat_name": "Infrastructure Damage"},
+                "facilities": {"priority": "low", "rank": 4, "label": "P4 - Low", "cat_name": "Campus Facilities & Amenities"}
+            }
+            p_info = p_map.get(cat, {"priority": "low", "rank": 4, "label": "P4 - Low", "cat_name": "General Incident"})
+
+            new_inc = {
+                "id": generate_id("INC"),
+                "title": title,
+                "cat": cat,
+                "cat_name": p_info["cat_name"],
+                "priority": p_info["priority"],
+                "priority_rank": p_info["rank"],
+                "priority_label": p_info["label"],
+                "location": location,
+                "desc": desc,
+                "who": who,
+                "branch": branch,
+                "media": media,
+                "media_name": media_name,
+                "status": "reported",
+                "notes": [],
+                "hist": [{"s": "reported", "at": today}],
+                "at": today
+            }
+            db.setdefault("incidents", []).insert(0, new_inc)
+            write_db(db)
+            return self._send_json(201, new_inc)
+
+        # Add Incident Note: /api/incidents/:id/notes
+        if path.startswith("/api/incidents/") and path.endswith("/notes"):
+            inc_id = path.split("/")[3]
+            by = str(body.get("by", "")).strip()
+            t = str(body.get("t", "")).strip()
+            if not t or not by:
+                return self._send_json(400, {"error": "Note remark and author required."})
+
+            target = next((i for i in db.get("incidents", []) if i.get("id") == inc_id), None)
+            if not target:
+                return self._send_json(404, {"error": "Incident not found."})
+
+            new_note = {"by": by, "t": t, "at": today}
+            target.setdefault("notes", []).insert(0, new_note)
+            write_db(db)
+            return self._send_json(201, target)
+
         return self._send_json(404, {"error": "Endpoint not found"})
 
     def do_PATCH(self):
@@ -350,6 +454,28 @@ class CampusEaseHandler(BaseHTTPRequestHandler):
 
             target["status"] = status
             target.setdefault("hist", []).append({"s": status, "at": today})
+            write_db(db)
+            return self._send_json(200, target)
+
+        # Update Incident Status: /api/incidents/:id/status
+        if path.startswith("/api/incidents/") and path.endswith("/status"):
+            inc_id = path.split("/")[3]
+            status = body.get("status")
+            note = str(body.get("note", "")).strip()
+            by = str(body.get("by", "Incident Command Desk")).strip()
+            if not status:
+                return self._send_json(400, {"error": "Status is required."})
+
+            target = next((i for i in db.get("incidents", []) if i.get("id") == inc_id), None)
+            if not target:
+                return self._send_json(404, {"error": "Incident not found."})
+
+            target["status"] = status
+            target.setdefault("hist", []).append({"s": status, "at": today})
+            if status == "resolved":
+                target["resolved_at"] = today
+            if note:
+                target.setdefault("notes", []).insert(0, {"by": by, "t": note, "at": today})
             write_db(db)
             return self._send_json(200, target)
 
@@ -399,14 +525,37 @@ class CampusEaseHandler(BaseHTTPRequestHandler):
             write_db(db)
             return self._send_json(200, {"success": True, "id": exam_id})
 
+        # Delete Single Incident: /api/incidents/:id
+        if path.startswith("/api/incidents/"):
+            inc_id = path.split("/")[3]
+            db["incidents"] = [i for i in db.get("incidents", []) if i.get("id") != inc_id]
+            write_db(db)
+            return self._send_json(200, {"success": True, "id": inc_id})
+
+        # Bulk Clear Incidents: /api/incidents
+        if path == "/api/incidents":
+            qs = parse_qs(parsed.query)
+            status_filter = qs.get("status", [""])[0]
+            if status_filter:
+                db["incidents"] = [i for i in db.get("incidents", []) if i.get("status") != status_filter]
+            else:
+                db["incidents"] = []
+            write_db(db)
+            return self._send_json(200, {"success": True, "incidents": db["incidents"]})
+
         return self._send_json(404, {"error": "Endpoint not found"})
 
     def log_message(self, format, *args):
         # Clean terminal output format
         sys.stderr.write(f"[{time.strftime('%H:%M:%S')}] {format % args}\n")
 
+# Top-level exports for Vercel, WSGI, and standard runners
+CampusEaseHandler = handler
+app = handler
+application = handler
+
 if __name__ == "__main__":
-    server = HTTPServer(("0.0.0.0", PORT), CampusEaseHandler)
+    server = HTTPServer(("0.0.0.0", PORT), handler)
     print("====================================================")
     print(f"CampusEase Backend Server running on port {PORT}")
     print(f"Web application URL: http://localhost:{PORT}")

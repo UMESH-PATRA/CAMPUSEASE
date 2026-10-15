@@ -154,5 +154,114 @@
     "office": "Admin Block B, Room 102",
     "hours": "Mon - Fri 09:00 - 17:00",
     "emergency": "Security: ext 100"
-  }
+  },
+  "incidents": [
+    {
+      "id": "INC-9011",
+      "title": "Acute Asthmatic Attack and Medical First-Aid Request",
+      "cat": "health",
+      "cat_name": "Health & Medical Emergency",
+      "priority": "critical",
+      "priority_rank": 1,
+      "priority_label": "P1 - Critical",
+      "location": "Hostel Block B, Room 214",
+      "desc": "Student experiencing severe breathing difficulty; emergency inhaler required and doctor requested on site.",
+      "who": "Ritika Nayak",
+      "branch": "CSE",
+      "status": "investigating",
+      "media": "",
+      "media_name": "",
+      "notes": [
+        {
+          "by": "Dr. Sen (Campus Health)",
+          "t": "Medical responder dispatched to Room 214 with nebulizer kit.",
+          "at": "2026-10-10"
+        }
+      ],
+      "hist": [
+        {
+          "s": "reported",
+          "at": "2026-10-10"
+        },
+        {
+          "s": "investigating",
+          "at": "2026-10-10"
+        }
+      ],
+      "at": "2026-10-10"
+    },
+    {
+      "id": "INC-8422",
+      "title": "Main Overhead Pipe Burst and Washroom Flooding",
+      "cat": "water",
+      "cat_name": "Water & Sanitation Crisis",
+      "priority": "high",
+      "priority_rank": 2,
+      "priority_label": "P2 - High",
+      "location": "Hostel Block A, 2nd Floor Central Washroom",
+      "desc": "Water pipe has cracked; clean water is overflowing into corridor and electrical conduits.",
+      "who": "Umesh Patra",
+      "branch": "CSE",
+      "status": "in_progress",
+      "media": "",
+      "media_name": "",
+      "notes": [
+        {
+          "by": "Maintenance Supervisor",
+          "t": "Main inlet valve shut off. Plumber team replacing 40mm pipe joint.",
+          "at": "2026-10-09"
+        }
+      ],
+      "hist": [
+        {
+          "s": "reported",
+          "at": "2026-10-09"
+        },
+        {
+          "s": "in_progress",
+          "at": "2026-10-09"
+        }
+      ],
+      "at": "2026-10-09"
+    },
+    {
+      "id": "INC-7105",
+      "title": "Circuit Breaker Tripped in Reading Hall",
+      "cat": "power",
+      "cat_name": "Electrical / Power Outage",
+      "priority": "medium",
+      "priority_rank": 3,
+      "priority_label": "P3 - Medium",
+      "location": "Library 1st Floor, Reading Hall East",
+      "desc": "Power sockets and ceiling fans shut down after overload.",
+      "who": "Umesh Patra",
+      "branch": "CSE",
+      "status": "resolved",
+      "media": "",
+      "media_name": "",
+      "notes": [
+        {
+          "by": "Campus Electrician",
+          "t": "Sub-panel breaker reset and load rebalanced across phase 2.",
+          "at": "2026-10-08"
+        }
+      ],
+      "hist": [
+        {
+          "s": "reported",
+          "at": "2026-10-08"
+        },
+        {
+          "s": "investigating",
+          "at": "2026-10-08"
+        },
+        {
+          "s": "resolved",
+          "at": "2026-10-08"
+        }
+      ],
+      "at": "2026-10-08",
+      "resolved_at": "2026-10-08"
+    }
+  ]
 }
