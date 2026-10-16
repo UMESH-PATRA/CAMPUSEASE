@@ -1440,6 +1440,13 @@
         return data;
       } catch (err) {
         console.warn('Backend API request notification:', err.message);
+        if (err.message === 'Failed to fetch' || err.name === 'TypeError') {
+          if (window.location.protocol === 'file:') {
+            throw new Error('Cannot connect to backend: You opened the HTML file directly. Please run "py server.py" in your terminal and open http://localhost:3000 in your browser.');
+          } else {
+            throw new Error('Cannot connect to backend server: Please verify that "py server.py" is running in your terminal.');
+          }
+        }
         throw err;
       }
     }

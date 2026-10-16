@@ -98,6 +98,9 @@ class handler(BaseHTTPRequestHandler):
         except Exception:
             return {}
 
+    def do_HEAD(self):
+        self.do_GET()
+
     def do_GET(self):
         parsed = urlparse(self.path)
         path = parsed.path
